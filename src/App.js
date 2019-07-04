@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
@@ -14,7 +14,16 @@ class App extends Component {
         </header>
         <main>
           <InputSearch />
-          <GuessedWords guessedWords={[]} />
+          <GuessedWords guessedWords={[{
+            guessedWord: "goob",
+            letterMatchCount: 4
+          }, {
+            guessedWord: "bob",
+            letterMatchCount: 1
+          }, {
+            guessedWord: "booger",
+            letterMatchCount: 6
+          }]} />
         </main>
       </div>
     );

@@ -38,5 +38,35 @@ describe('if there are no words guessed', () => {
 })
 
 describe('if there are words guessed', () => {
+    let wrapper;
 
+    const guessedWords = [{
+        guessedWord: "goob",
+        letterMatchCount: 4
+    }, {
+        guessedWord: "bob",
+        letterMatchCount: 1
+    }, {
+        guessedWord: "booger",
+        letterMatchCount: 6
+    }];
+
+    beforeEach(() => {
+        wrapper = setup({ guessedWords })
+    })
+
+    it('renders comp without an error', () => {
+        const comp = elementAttr(wrapper, 'guessed-words-container');
+        expect(comp.length).toBe(1);
+    })
+
+    it('renders the word results section', () => {
+        const comp = elementAttr(wrapper, 'guessed-words');
+        expect(comp.length).toBe(1);
+    });
+
+    it('renders the correct amount of guessed words', () => {
+        const comp = elementAttr(wrapper, 'guessed-word');
+        expect(comp.length).toBe(guessedWords.length)
+    })
 })
