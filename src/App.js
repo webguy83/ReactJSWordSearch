@@ -14,7 +14,7 @@ class App extends Component {
         </header>
         <main>
           <InputSearch />
-          <GuessedWords />
+          <GuessedWords guessedWords={[]} />
         </main>
       </div>
     );

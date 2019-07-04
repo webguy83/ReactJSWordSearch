@@ -1,0 +1,42 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+import { elementAttr, checkProps } from '../../utils/testingFunctions';
+import GuessedWords from './GuessedWords';
+
+const defaultProps = {
+    guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }]
+}
+
+const setup = (props = {}) => {
+    const mergedProps = { ...defaultProps, ...props }
+    return shallow(<GuessedWords {...mergedProps} />)
+}
+
+it('should not throw any warning with props expected', () => {
+    checkProps(GuessedWords, defaultProps)
+})
+
+describe('if there are no words guessed', () => {
+
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = setup({
+            guessedWords: []
+        })
+    })
+
+    it('renders comp without an error', () => {
+        const comp = elementAttr(wrapper, "guessed-words-container");
+        expect(comp.length).toBe(1);
+    })
+
+    it('renders an intructions line', () => {
+        const comp = elementAttr(wrapper, 'guessed-words-instructions');
+        expect(comp.text().length).not.toBe(0);
+    })
+})
+
+describe('if there are words guessed', () => {
+
+})
