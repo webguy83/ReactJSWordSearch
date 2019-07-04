@@ -8,12 +8,13 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="container">
         <header className="App-header">
           <h1>Search this lucky word</h1>
         </header>
         <main>
           <InputSearch />
+          <CongratsMessage success={true} />
           <GuessedWords guessedWords={[{
             guessedWord: "goob",
             letterMatchCount: 4

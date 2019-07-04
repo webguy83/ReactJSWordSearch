@@ -14,8 +14,8 @@ const GuessedWords = (props) => {
             {guessedWords.length === 0 ? <p data-test="guessed-words-instructions">Try to guess the word haha!</p>
                 :
                 <div data-test="guessed-words">
-                    <table>
-                        <thead>
+                    <table className="table table-striped">
+                        <thead className="thead-light">
                             <tr>
                                 <th>Guess</th>
                                 <th>Matching letters</th>
