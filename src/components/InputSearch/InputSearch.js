@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const InputSearch = () => {
-    return (
-        <form>
-            <input className="searchInput" type="text" name="search"/>
-            <button type="submit">Guess</button>
-        </form>
-    );
+class InputSearch extends Component {
+    render() {
+        return (
+            <form>
+                <input className="searchInput" type="text" name="search" />
+                <button type="submit">Guess</button>
+            </form>
+        );
+    }
 };
 
-export default InputSearch;
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps)(InputSearch);
