@@ -14,3 +14,7 @@ export const elementAttr = (wrapper, value) => {
 export const checkProps = (component, props) => {
     expect(checkPropTypes(component.propTypes, props, 'prop', component.name)).toBeUndefined();
 }
+
+export const Auxiliary = (props) => {
+    return props.children;
+}

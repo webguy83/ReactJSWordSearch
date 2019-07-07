@@ -1,6 +1,6 @@
 import { actionTypes } from '../actions';
 
-const success = (state = false, action) => {
+const success = (state = true, action) => {
     switch (action.type) {
         case actionTypes.CORRECT_GUESS:
             return true
