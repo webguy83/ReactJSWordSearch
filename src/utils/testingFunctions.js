@@ -1,10 +1,11 @@
 import checkPropTypes from 'check-prop-types';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import rootReducer from '../store/reducers'
 
 export const storeFactory = (initState) => {
-    return createStore(rootReducer, initState);
+    return createStore(rootReducer, initState, applyMiddleware(thunk));
 }
 
 export const elementAttr = (wrapper, value) => {
