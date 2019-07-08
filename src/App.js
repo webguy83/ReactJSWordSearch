@@ -3,6 +3,7 @@ import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
 import './App.css';
+import { getLetterMatchCount } from './utils/helpers';
 
 class App extends Component {
 
