@@ -53,6 +53,16 @@ describe('render', () => {
     })
 });
 
-describe('update state', () => {
-
+describe('redux props', () => {
+    it('has a success piece of state as prop', () => {
+        const success = true;
+        const wrapper = setup({success});
+        const successProp = wrapper.instance().props.success;
+        expect(successProp).toBe(success);
+    });
+    it('guessWord action creator is a function prop', () => {
+        const wrapper = setup();
+        const guessWordProp = wrapper.instance().props.guessWord;
+        expect(guessWordProp).toBeInstanceOf(Function);
+    })
 })
