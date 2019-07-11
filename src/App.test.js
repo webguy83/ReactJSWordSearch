@@ -41,6 +41,32 @@ describe('redux props', () => {
     const wrapper = setup({ success });
     const successProp = wrapper.instance().props.success;
     expect(successProp).toBe(success);
+  });
+  it('has a guessedWords piece of state', () => {
+    const guessedWords = [{
+      guessedWord: "goob",
+      letterMatchCount: 4
+    }, {
+      guessedWord: "bob",
+      letterMatchCount: 1
+    }, {
+      guessedWord: "booger",
+      letterMatchCount: 6
+    }];
+    const wrapper = setup({ guessedWords });
+    const guessedWordsProp = wrapper.instance().props.guessedWords;
+    expect(guessedWordsProp).toEqual(guessedWords);
+  });
+  it('has access to secretWords state', () => {
+    const word = 'bunk';
+    const wrapper = setup({ secretWord: word });
+    const secretWordProp = wrapper.instance().props.secretWord;
+    expect(secretWordProp).toBe(word);
+  })
+  it('should have getSecretWord action creator as function on the props', () => {
+    const wrapper = setup();
+    const getSecretWordProp = wrapper.instance().props.getSecretWord;
+    expect(getSecretWordProp).toBeInstanceOf(Function);
   })
 })
 

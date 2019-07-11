@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
+import { getSecretWord } from './store/actions';
 import './App.css';
 
 import { connect } from 'react-redux';
@@ -17,16 +18,7 @@ class App extends Component {
         <main>
           <InputSearch />
           <CongratsMessage success={this.props.success} />
-          <GuessedWords guessedWords={[{
-            guessedWord: "goob",
-            letterMatchCount: 4
-          }, {
-            guessedWord: "bob",
-            letterMatchCount: 1
-          }, {
-            guessedWord: "booger",
-            letterMatchCount: 6
-          }]} />
+          <GuessedWords guessedWords={this.props.guessedWords} />
         </main>
       </div>
     );
@@ -36,8 +28,9 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     success: state.success,
-    guessedWords: state.guessedWords
+    guessedWords: state.guessedWords,
+    secretWord: state.secretWord
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, { getSecretWord })(App);
