@@ -3,7 +3,8 @@ import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
 import './App.css';
-import { getLetterMatchCount } from './utils/helpers';
+
+import { connect } from 'react-redux';
 
 class App extends Component {
 
@@ -15,7 +16,7 @@ class App extends Component {
         </header>
         <main>
           <InputSearch />
-          <CongratsMessage success={true} />
+          <CongratsMessage success={this.props.success} />
           <GuessedWords guessedWords={[{
             guessedWord: "goob",
             letterMatchCount: 4
@@ -32,4 +33,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    success: state.success,
+    guessedWords: state.guessedWords
+  }
+}
+
+export default connect(mapStateToProps)(App);
