@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './App';
+import App, { UncontrolledApp } from './App';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import { storeFactory } from './utils/testingFunctions';
@@ -68,5 +68,16 @@ describe('redux props', () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
   })
+})
+
+it('should run getSecretWord on mount', () => {
+  const getSecretWordMock = jest.fn();
+
+  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} guessedWords={[]} />);
+  wrapper.instance().componentDidMount();
+
+  const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+
+  expect(getSecretWordCallCount).toBe(1);
 })
 

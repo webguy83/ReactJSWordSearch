@@ -7,7 +7,11 @@ import './App.css';
 
 import { connect } from 'react-redux';
 
-class App extends Component {
+export class UncontrolledApp extends Component {
+
+  componentDidMount() {
+    this.props.getSecretWord();
+  }
 
   render() {
     return (
@@ -33,4 +37,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, { getSecretWord })(UncontrolledApp);
