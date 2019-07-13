@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { elementAttr, storeFactory } from '../../utils/testingFunctions';
 
-import InputSearch from './InputSearch';
+import InputSearch, { UnconnectedInputSearch } from './InputSearch';
 
 const setup = (initState = {}) => {
     const store = storeFactory(initState);
@@ -56,7 +56,7 @@ describe('render', () => {
 describe('redux props', () => {
     it('has a success piece of state as prop', () => {
         const success = true;
-        const wrapper = setup({success});
+        const wrapper = setup({ success });
         const successProp = wrapper.instance().props.success;
         expect(successProp).toBe(success);
     });
@@ -65,4 +65,15 @@ describe('redux props', () => {
         const guessWordProp = wrapper.instance().props.guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
     })
+})
+
+it('should simulate a click on submit button', () => {
+    const guessWordMock = jest.fn();
+
+    const wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} />);
+    const component = elementAttr(wrapper, "component-submitBtn");
+    component.simulate('click');
+
+    const guessWordCallCount = guessWordMock.mock.calls.length;
+    expect(guessWordCallCount).toBe(1);
 })

@@ -11,10 +11,6 @@ const setup = (initState = {}) => {
   return shallow(<App store={store} />).dive().dive();
 }
 
-const findElemAttr = (wrapper, value) => {
-  return wrapper.find(`[data-test="${value}"]`);
-}
-
 describe('render', () => {
   let wrapper;
 
