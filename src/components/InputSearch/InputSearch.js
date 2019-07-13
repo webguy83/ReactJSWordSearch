@@ -18,6 +18,7 @@ export class UnconnectedInputSearch extends Component {
         if (guessWord && guessWord.length > 0) {
             this.props.guessWord(guessedWord)
         }
+        this.guessInputBox.current.value = "";
     }
 
     render() {
