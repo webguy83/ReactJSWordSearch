@@ -70,27 +70,52 @@ describe('redux props', () => {
 describe('guess word action creator call', () => {
     let guessWordMock;
     let wrapper;
-    const guessedWord = "duncebiggalow"
+    let guessedWord;
     beforeEach(() => {
         guessWordMock = jest.fn();
         wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} />);
+    });
 
+    it('should simulate a click and call guessWord on submit button', () => {
+        guessedWord = "bambideer";
         wrapper.instance().guessInputBox.current = { value: guessedWord }
 
         const component = elementAttr(wrapper, "component-submitBtn");
         component.simulate('click', { preventDefault: () => { } });
-    });
 
-    it('should simulate a click and call guessWord on submit button', () => {
         const guessWordCallCount = guessWordMock.mock.calls.length;
         expect(guessWordCallCount).toBe(1);
     });
 
+    it('should not submit if input is empty', () => {
+        guessedWord = "";
+        wrapper.instance().guessInputBox.current = { value: guessedWord }
+
+        const component = elementAttr(wrapper, "component-submitBtn");
+        component.simulate('click', { preventDefault: () => { } });
+
+        const guessWordArg = guessWordMock.mock.calls;
+        expect(guessWordArg.length).toBe(0)
+    })
+
     it('should call guessWord with input as arg', () => {
+        guessedWord = "bambideer";
+        wrapper.instance().guessInputBox.current = { value: guessedWord }
+
+        const component = elementAttr(wrapper, "component-submitBtn");
+        component.simulate('click', { preventDefault: () => { } });
+
         const guessWordArg = guessWordMock.mock.calls[0][0];
         expect(guessWordArg).toBe(guessedWord);
     });
+    
     it('should clear the input field after submitting', () => {
+        guessedWord = "bambideer";
+        wrapper.instance().guessInputBox.current = { value: guessedWord }
+
+        const component = elementAttr(wrapper, "component-submitBtn");
+        component.simulate('click', { preventDefault: () => { } });
+
         expect(wrapper.instance().guessInputBox.current.value).toBe("");
     })
 })

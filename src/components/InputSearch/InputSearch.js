@@ -15,7 +15,7 @@ export class UnconnectedInputSearch extends Component {
     guessWordClicked = (e) => {
         e.preventDefault();
         const guessedWord = this.guessInputBox.current.value;
-        if (guessWord && guessWord.length > 0) {
+        if (guessedWord && guessWord.length > 0) {
             this.props.guessWord(guessedWord)
         }
         this.guessInputBox.current.value = "";
