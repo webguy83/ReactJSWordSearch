@@ -60,7 +60,7 @@ describe('redux props', () => {
     expect(secretWordProp).toBe(word);
   });
   it('should have access to guessCount state', () => {
-    const guessCount = 0;
+    const guessCount = [1, 2];
     const wrapper = setup({ guessCount });
     const guessCountProp = wrapper.instance().props.guessCount;
     expect(guessCountProp).toBe(guessCount);
@@ -76,7 +76,7 @@ describe('redux props', () => {
 it('should run getSecretWord on mount', () => {
   const getSecretWordMock = jest.fn();
 
-  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} guessedWords={[]} guessCount={0} />);
+  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} guessedWords={[]} guessCount={[1, 2]} />);
   wrapper.instance().componentDidMount();
 
   const getSecretWordCallCount = getSecretWordMock.mock.calls.length;

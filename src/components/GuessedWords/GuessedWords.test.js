@@ -5,7 +5,7 @@ import GuessedWords from './GuessedWords';
 
 const defaultProps = {
     guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }],
-    guessCount: 0
+    guessCount: [1]
 }
 
 const setup = (props = {}) => {

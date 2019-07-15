@@ -7,7 +7,7 @@ const GuessedWords = (props) => {
     let words;
     if (guessedWords.length > 0) {
         words = guessedWords.map((item, i) => {
-            return <tr key={i} data-test="guessed-word"><td>{i + 1}</td><td>{item.guessedWord}</td><td>{item.letterMatchCount}</td></tr>
+            return <tr key={i} data-test="guessed-word"><td>{guessCount[i]}</td><td>{item.guessedWord}</td><td>{item.letterMatchCount}</td></tr>
         })
     }
     return (
@@ -29,7 +29,7 @@ const GuessedWords = (props) => {
                             </tbody>
                         </table>
                     </div>
-                    <p>Total Guesses: {guessCount}</p>
+                    <p>Total Guesses: {guessCount.length - 1}</p>
                 </Auxiliary>
             }
         </div>
@@ -43,7 +43,7 @@ GuessedWords.propTypes = {
             letterMatchCount: PropTypes.number.isRequired
         })
     ).isRequired,
-    guessCount: PropTypes.number.isRequired
+    guessCount: PropTypes.arrayOf(PropTypes.number).isRequired
 }
 
 export default GuessedWords;
