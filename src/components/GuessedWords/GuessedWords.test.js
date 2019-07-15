@@ -4,7 +4,7 @@ import { elementAttr, checkProps } from '../../utils/testingFunctions';
 import GuessedWords from './GuessedWords';
 
 const defaultProps = {
-    guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }]
+    guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4, guessCount: 1 }]
 }
 
 const setup = (props = {}) => {
@@ -42,13 +42,16 @@ describe('if there are words guessed', () => {
 
     const guessedWords = [{
         guessedWord: "goob",
-        letterMatchCount: 4
+        letterMatchCount: 4,
+        guessCount: 1
     }, {
         guessedWord: "bob",
-        letterMatchCount: 1
+        letterMatchCount: 1,
+        guessCount: 2
     }, {
         guessedWord: "booger",
-        letterMatchCount: 6
+        letterMatchCount: 6,
+        guessCount: 3
     }];
 
     beforeEach(() => {
