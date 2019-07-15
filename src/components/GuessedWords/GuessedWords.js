@@ -1,33 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Auxiliary } from '../../utils/testingFunctions';
 
 const GuessedWords = (props) => {
-    const { guessedWords } = props;
+    const { guessedWords, guessCount } = props;
     let words;
-    if(guessedWords.length > 0) {
+    if (guessedWords.length > 0) {
         words = guessedWords.map((item, i) => {
-            return <tr key={i} data-test="guessed-word"><td>{item.guessCount}</td><td>{item.guessedWord}</td><td>{item.letterMatchCount}</td></tr>
+            return <tr key={i} data-test="guessed-word"><td>{i + 1}</td><td>{item.guessedWord}</td><td>{item.letterMatchCount}</td></tr>
         })
     }
     return (
         <div data-test="guessed-words-container" className="results">
             {guessedWords.length === 0 ? <p data-test="guessed-words-instructions">Try to guess the word haha!</p>
                 :
-                <div data-test="guessed-words">
-                    <table className="table table-striped">
-                        <thead className="thead-light">
-                            <tr>
-                                <th>#</th>
-                                <th>Guess</th>
-                                <th>Matching letters</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {words}
-                        </tbody>
-                    </table>
-                </div>
-
+                <Auxiliary>
+                    <div data-test="guessed-words">
+                        <table className="table table-striped">
+                            <thead className="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Guess</th>
+                                    <th>Matching letters</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {words}
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>Total Guesses: {guessCount}</p>
+                </Auxiliary>
             }
         </div>
     );
@@ -37,10 +40,10 @@ GuessedWords.propTypes = {
     guessedWords: PropTypes.arrayOf(
         PropTypes.shape({
             guessedWord: PropTypes.string.isRequired,
-            letterMatchCount: PropTypes.number.isRequired,
-            guessCount: PropTypes.number.isRequired
+            letterMatchCount: PropTypes.number.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    guessCount: PropTypes.number.isRequired
 }
 
 export default GuessedWords;

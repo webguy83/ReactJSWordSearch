@@ -22,7 +22,7 @@ export class UncontrolledApp extends Component {
         <main>
           <InputSearch />
           <CongratsMessage success={this.props.success} />
-          <GuessedWords guessedWords={this.props.guessedWords} />
+          <GuessedWords guessedWords={this.props.guessedWords} guessCount={this.props.guessCount} />
         </main>
       </div>
     );
@@ -33,7 +33,8 @@ const mapStateToProps = (state) => {
   return {
     success: state.success,
     guessedWords: state.guessedWords,
-    secretWord: state.secretWord
+    secretWord: state.secretWord,
+    guessCount: state.guessCount
   }
 }
 

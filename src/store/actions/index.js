@@ -4,7 +4,8 @@ import axios from 'axios';
 export const actionTypes = {
     CORRECT_GUESS: "CORRECT_GUESS",
     GUESS_WORD: "GUESS_WORD",
-    SET_SECRET_WORD: "SET_SECRET_WORD"
+    SET_SECRET_WORD: "SET_SECRET_WORD",
+    INC_GUESS_COUNT: "INC_GUESS_COUNT"
 }
 
 export const guessWord = (guessedWord) => {
@@ -15,6 +16,10 @@ export const guessWord = (guessedWord) => {
         dispatch({
             type: actionTypes.GUESS_WORD,
             payload: { guessedWord, letterMatchCount }
+        });
+
+        dispatch({
+            type: actionTypes.INC_GUESS_COUNT
         })
 
         if (guessedWord === secretWord) {
