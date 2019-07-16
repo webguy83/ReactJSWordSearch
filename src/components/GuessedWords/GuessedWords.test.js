@@ -5,7 +5,7 @@ import GuessedWords from './GuessedWords';
 
 const defaultProps = {
     guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }],
-    guessCount: [1]
+    guessCount: [1, 2, 3]
 }
 
 const setup = (props = {}) => {
@@ -59,7 +59,7 @@ describe('if there are words guessed', () => {
     it('renders comp without an error', () => {
         const comp = elementAttr(wrapper, 'guessed-words-container');
         expect(comp.length).toBe(1);
-    })
+    });
 
     it('renders the word results section', () => {
         const comp = elementAttr(wrapper, 'guessed-words');
@@ -69,5 +69,17 @@ describe('if there are words guessed', () => {
     it('renders the correct amount of guessed words', () => {
         const comp = elementAttr(wrapper, 'guessed-word');
         expect(comp.length).toBe(guessedWords.length)
-    })
+    });
+
+    it('renders total guesses at the bottom of the table', () => {
+        const comp = elementAttr(wrapper, 'guess-count-total');
+        expect(Number(comp.text())).toBe(guessedWords.length - 1);
+    });
+
+    it('should render guessCount incrementing by one after each guess', () => {
+        const comp = elementAttr(wrapper, 'guess-count');
+        const wordOne = Number(comp.at(0).text());
+        const wordTwo = Number(comp.at(1).text());
+        expect(wordTwo).toBeGreaterThan(wordOne);
+    });
 })
