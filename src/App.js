@@ -24,6 +24,7 @@ export class UncontrolledApp extends Component {
           <CongratsMessage success={this.props.success} />
           <GuessedWords guessedWords={this.props.guessedWords} guessCount={this.props.guessCount} />
         </main>
+        <footer>{this.props.secretWord}</footer>
       </div>
     );
   }
