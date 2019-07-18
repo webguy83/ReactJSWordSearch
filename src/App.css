@@ -2,3 +2,18 @@
   margin-top: 1rem;
   display: inline-block;
 }
+
+.newWordBtn {
+  margin-bottom: 1rem;
+  background-color: green;
+  color: white;
+  text-transform: uppercase;
+  transition: all .6s;
+}
+
+.newWordBtn:hover,
+.newWordBtn:active {
+  background-color: orangered;
+  color:black;
+  transition: all .6s;
+}

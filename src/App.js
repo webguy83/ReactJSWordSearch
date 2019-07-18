@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
+import NewWordBtn from './components/NewWord/NewWord';
 import { getSecretWord } from './store/actions';
 import './App.css';
 
@@ -13,6 +14,14 @@ export class UncontrolledApp extends Component {
     this.props.getSecretWord();
   }
 
+  newWordBtnClick = () => {
+    // reset the game with a new word from server
+    // set success to false
+    // clear guessedWords to an empty array
+    // set guesscount to 1
+    // load a new word from server
+  }
+
   render() {
     return (
       <div className="container">
@@ -22,6 +31,7 @@ export class UncontrolledApp extends Component {
         <main>
           <InputSearch />
           <CongratsMessage success={this.props.success} />
+          <NewWordBtn clearData={this.newWordBtnClick} success={this.props.success}  />
           <GuessedWords guessedWords={this.props.guessedWords} guessCount={this.props.guessCount} />
         </main>
         <footer>{this.props.secretWord}</footer>
