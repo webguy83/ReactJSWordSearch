@@ -122,5 +122,8 @@ describe('after clicking New Word button it should perform the following', () =>
   it('runs clearGuessCount function on button click', () => {
     expect(clearGuessCountMock.mock.calls.length).toBe(1);
   })
+  it('runs getSecretWord function on button click', () => {
+    expect(getSecretWordMock.mock.calls.length).toBe(1);
+  })
 })
 

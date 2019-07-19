@@ -23,8 +23,12 @@ export class UncontrolledApp extends Component {
     // set guesscount to 1
     this.props.clearGuessCount();
     // load a new word from server
+    this.props.getSecretWord();
   }
 
+  returnAnswer = () => {
+    return this.props.secretWord ? <span className="hideSecretWord">{this.props.secretWord}</span> : null
+  }
   render() {
     return (
       <div className="container">
@@ -34,10 +38,10 @@ export class UncontrolledApp extends Component {
         <main>
           <InputSearch />
           <CongratsMessage success={this.props.success} />
-          <NewWordBtn clearData={this.newWordBtnClick} success={this.props.success}  />
+          <NewWordBtn clearData={this.newWordBtnClick} success={this.props.success} />
           <GuessedWords guessedWords={this.props.guessedWords} guessCount={this.props.guessCount} />
         </main>
-        <footer>{this.props.secretWord}</footer>
+        <footer>Hover over the box to reveal the answer: {this.returnAnswer()}</footer>
       </div>
     );
   }

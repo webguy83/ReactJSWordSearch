@@ -17,3 +17,15 @@
   color:black;
   transition: all .6s;
 }
+
+.hideSecretWord {
+  background-color: red;
+  color: transparent;
+  transition: all .3s;
+}
+
+.hideSecretWord:hover {
+  color: black;
+  background-color: transparent;
+  transition: all .3s;
+}
