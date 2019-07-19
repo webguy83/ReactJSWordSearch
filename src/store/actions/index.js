@@ -7,7 +7,8 @@ export const actionTypes = {
     SET_SECRET_WORD: "SET_SECRET_WORD",
     INC_GUESS_COUNT: "INC_GUESS_COUNT",
     RESET_SUCCESS: "RESET_SUCCESS",
-    CLEAR_GUESS_WORDS: "CLEAR_GUESS_WORDS"
+    CLEAR_GUESS_WORDS: "CLEAR_GUESS_WORDS",
+    CLEAR_GUESS_COUNT: "CLEAR_GUESS_COUNT"
 }
 
 export const resetSuccess = () => {
@@ -16,9 +17,15 @@ export const resetSuccess = () => {
     }
 }
 
-export const clearGuestWords = () => {
+export const clearGuessWords = () => {
     return {
         type: actionTypes.CLEAR_GUESS_WORDS
+    }
+}
+
+export const clearGuessCount = () => {
+    return {
+        type: actionTypes.CLEAR_GUESS_COUNT
     }
 }
 

@@ -3,7 +3,7 @@ import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import CongratsMessage from './components/Congrats/Congrats';
 import NewWordBtn from './components/NewWord/NewWord';
-import { getSecretWord, resetSuccess, clearGuestWords } from './store/actions';
+import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount } from './store/actions';
 import './App.css';
 
 import { connect } from 'react-redux';
@@ -19,8 +19,9 @@ export class UncontrolledApp extends Component {
     // set success to false
     this.props.resetSuccess();
     // clear guessedWords to an empty array
-    this.props.clearGuestWords();
+    this.props.clearGuessWords();
     // set guesscount to 1
+    this.props.clearGuessCount();
     // load a new word from server
   }
 
@@ -59,8 +60,11 @@ const mapDispatchToProps = (dispatch) => {
     resetSuccess: () => {
       return dispatch(resetSuccess());
     },
-    clearGuestWords: () => {
-      return dispatch(clearGuestWords());
+    clearGuessWords: () => {
+      return dispatch(clearGuessWords());
+    },
+    clearGuessCount: () => {
+      return dispatch(clearGuessCount());
     }
   }
 }

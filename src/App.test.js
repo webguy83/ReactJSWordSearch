@@ -94,16 +94,20 @@ it('should run getSecretWord on mount', () => {
 describe('after clicking New Word button it should perform the following', () => {
   let resetSuccessMock;
   let getSecretWordMock;
-  let clearGuestWordsMock;
+  let clearGuessWordsMock;
+  let clearGuessCountMock;
 
   beforeEach(() => {
     resetSuccessMock = jest.fn();
     getSecretWordMock = jest.fn();
-    clearGuestWordsMock = jest.fn();
+    clearGuessWordsMock = jest.fn();
+    clearGuessCountMock = jest.fn();
+
 
     const wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock} 
                                             getSecretWord={getSecretWordMock} 
-                                            clearGuestWords={clearGuestWordsMock}
+                                            clearGuessWords={clearGuessWordsMock}
+                                            clearGuessCount={clearGuessCountMock}
                                             success={true} guessedWords={[]} 
                                             guessCount={[1, 2]} />);
     wrapper.instance().newWordBtnClick();
@@ -112,8 +116,11 @@ describe('after clicking New Word button it should perform the following', () =>
   it('run resetSuccess function on button click', () => {
     expect(resetSuccessMock.mock.calls.length).toBe(1);
   })
-  it('run clearGuestWords function on button click,', () => {
-    expect(clearGuestWordsMock.mock.calls.length).toBe(1);
+  it('run clearGuessWords function on button click,', () => {
+    expect(clearGuessWordsMock.mock.calls.length).toBe(1);
+  })
+  it('runs clearGuessCount function on button click', () => {
+    expect(clearGuessCountMock.mock.calls.length).toBe(1);
   })
 })
 
