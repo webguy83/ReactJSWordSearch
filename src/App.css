@@ -29,3 +29,11 @@
   background-color: transparent;
   transition: all .3s;
 }
+
+.guessBtn {
+  margin-left: 1rem;
+}
+
+.instructionsTxt {
+  margin-top: 1rem;
+}
