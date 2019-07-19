@@ -15,21 +15,25 @@ export class UncontrolledApp extends Component {
   }
 
   newWordBtnClick = () => {
+    const { resetSuccess, clearGuessWords, clearGuessCount, getSecretWord } = this.props;
     // reset the game with a new word from server
     // set success to false
-    this.props.resetSuccess();
+    resetSuccess();
     // clear guessedWords to an empty array
-    this.props.clearGuessWords();
+    clearGuessWords();
     // set guesscount to 1
-    this.props.clearGuessCount();
+    clearGuessCount();
     // load a new word from server
-    this.props.getSecretWord();
+    getSecretWord();
   }
 
   returnAnswer = () => {
-    return this.props.secretWord ? <span className="hideSecretWord">{this.props.secretWord}</span> : null
+    const { secretWord } = this.props;
+    return secretWord ? <span className="hideSecretWord">{secretWord}</span> : null
   }
   render() {
+    const { newWordBtnClick, returnAnswer } = this;
+    const { success, guessedWords, guessCount } = this.props;
     return (
       <div className="container">
         <header className="App-header">
@@ -37,22 +41,23 @@ export class UncontrolledApp extends Component {
         </header>
         <main>
           <InputSearch />
-          <CongratsMessage success={this.props.success} />
-          <NewWordBtn clearData={this.newWordBtnClick} success={this.props.success} />
-          <GuessedWords guessedWords={this.props.guessedWords} guessCount={this.props.guessCount} />
+          <CongratsMessage success={success} />
+          <NewWordBtn clearData={newWordBtnClick} success={success} />
+          <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
         </main>
-        <footer>Hover over the box to reveal the answer: {this.returnAnswer()}</footer>
+        <footer>Hover over the box to reveal the answer: {returnAnswer()}</footer>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
+  const {success, guessedWords, secretWord, guessCount} = state;
   return {
-    success: state.success,
-    guessedWords: state.guessedWords,
-    secretWord: state.secretWord,
-    guessCount: state.guessCount
+    success,
+    guessedWords,
+    secretWord,
+    guessCount
   }
 }
 
