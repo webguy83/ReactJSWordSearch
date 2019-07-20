@@ -16,6 +16,7 @@ const GuessedWords = (props) => {
                 :
                 <Auxiliary>
                     <div data-test="guessed-words">
+                        <h2>Guessed Words</h2>
                         <table className="table table-striped">
                             <thead className="thead-light">
                                 <tr>
