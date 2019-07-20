@@ -29,7 +29,7 @@ const GuessedWords = (props) => {
                             </tbody>
                         </table>
                     </div>
-                    <p>Total Guesses: <span data-test="guess-count-total">{guessCount.length - 1}</span></p>
+                    <p>Total Guesses: <span data-test="guess-count-total" className="guessCount">{guessCount.length - 1}</span></p>
                 </Auxiliary>
             }
         </div>

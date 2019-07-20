@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { guessWord } from '../../store/actions';
+import GiveUpBtn from '../GiveUp/GiveUp';
 
 import { Auxiliary } from '../../utils/testingFunctions';
 
@@ -22,11 +23,13 @@ export class UnconnectedInputSearch extends Component {
     }
 
     render() {
+        const { success } = this.props;
         return (
             <form data-test="component-inputsearch">
-                {this.props.success ? null :
+                {success ? null :
                     <Auxiliary><input data-test="component-inputbox" ref={this.guessInputBox} className="searchInput" type="text" name="search" />
                         <button className="guessBtn" data-test="component-submitBtn" onClick={this.guessWordClicked} type="submit">Guess</button>
+                        <GiveUpBtn giveUpAndShowWord={() => { }} />
                     </Auxiliary>
                 }
             </form>

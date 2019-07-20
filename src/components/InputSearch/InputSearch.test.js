@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import GiveUpBtn from '../GiveUp/GiveUp';
 import { elementAttr, storeFactory } from '../../utils/testingFunctions';
 
 import InputSearch, { UnconnectedInputSearch } from './InputSearch';
@@ -29,6 +30,9 @@ describe('render', () => {
         it('renders a submit btn', () => {
             const component = elementAttr(wrapper, "component-submitBtn");
             expect(component.length).toBe(1);
+        })
+        it('renders a give up btn', () => {
+            expect(wrapper.find(GiveUpBtn).length).toBe(1);
         })
     })
     describe('word has been guessed', () => {
