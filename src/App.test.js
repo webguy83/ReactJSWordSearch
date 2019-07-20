@@ -72,6 +72,12 @@ describe('redux props', () => {
     const guessCountProp = wrapper.instance().props.guessCount;
     expect(guessCountProp).toBe(guessCount);
   });
+  it('should have access to giveUp state', () => {
+    const giveUp = true;
+    const wrapper = setup({ giveUp });
+    const giveUpProp = wrapper.instance().props.giveUp;
+    expect(giveUpProp).toBe(giveUp);
+  })
 
   it('should have getSecretWord action creator as function on the props', () => {
     const wrapper = setup();
@@ -83,7 +89,7 @@ describe('redux props', () => {
 it('should run getSecretWord on mount', () => {
   const getSecretWordMock = jest.fn();
 
-  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} guessedWords={[]} guessCount={[1, 2]} />);
+  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} giveUp={false} guessedWords={[]} guessCount={[1, 2]} />);
   wrapper.instance().componentDidMount();
 
   const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
@@ -104,12 +110,14 @@ describe('after clicking New Word button it should perform the following', () =>
     clearGuessCountMock = jest.fn();
 
 
-    const wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock} 
-                                            getSecretWord={getSecretWordMock} 
-                                            clearGuessWords={clearGuessWordsMock}
-                                            clearGuessCount={clearGuessCountMock}
-                                            success={true} guessedWords={[]} 
-                                            guessCount={[1, 2]} />);
+    const wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock}
+      getSecretWord={getSecretWordMock}
+      clearGuessWords={clearGuessWordsMock}
+      clearGuessCount={clearGuessCountMock}
+      giveUp={false}
+      success={true}
+      guessedWords={[]}
+      guessCount={[1, 2]} />);
     wrapper.instance().newWordBtnClick();
   })
 

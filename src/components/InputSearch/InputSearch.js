@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { guessWord } from '../../store/actions';
+import { guessWord, giveUp } from '../../store/actions';
 import GiveUpBtn from '../GiveUp/GiveUp';
 
 import { Auxiliary } from '../../utils/testingFunctions';
@@ -14,26 +14,29 @@ export class UnconnectedInputSearch extends Component {
     }
 
     guessWordClicked = (e) => {
+        const { guessInputBox, props } = this
         e.preventDefault();
-        const guessedWord = this.guessInputBox.current.value;
+        const guessedWord = guessInputBox.current.value;
         if (guessedWord && guessWord.length > 0) {
-            this.props.guessWord(guessedWord)
+            props.guessWord(guessedWord)
         }
-        this.guessInputBox.current.value = "";
+        guessInputBox.current.value = "";
     }
 
-    giveUpClickBtn = () => {
-
+    giveUpClickBtn = (e) => {
+        e.preventDefault()
+        this.props.giveUp();
     }
 
     render() {
+        const { giveUpClickBtn, guessInputBox, guessWordClicked } = this;
         const { success } = this.props;
         return (
             <form data-test="component-inputsearch">
                 {success ? null :
-                    <Auxiliary><input data-test="component-inputbox" ref={this.guessInputBox} className="searchInput" type="text" name="search" />
-                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={this.guessWordClicked} type="submit">Guess</button>
-                        <GiveUpBtn giveUpAndShowWord={this.giveUpClickBtn} />
+                    <Auxiliary><input data-test="component-inputbox" ref={guessInputBox} className="searchInput" type="text" name="search" />
+                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={guessWordClicked} type="submit">Guess</button>
+                        <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
                     </Auxiliary>
                 }
             </form>
@@ -42,9 +45,21 @@ export class UnconnectedInputSearch extends Component {
 };
 
 const mapStateToProps = (state) => {
+    const { success } = state
     return {
-        success: state.success
+        success
     }
 }
 
-export default connect(mapStateToProps, { guessWord })(UnconnectedInputSearch);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        guessWord: (guessedWord) => {
+            return dispatch(guessWord(guessedWord))
+        },
+        giveUp: () => {
+            return dispatch(giveUp());
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedInputSearch);

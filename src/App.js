@@ -33,7 +33,8 @@ export class UncontrolledApp extends Component {
   }
   render() {
     const { newWordBtnClick, returnAnswer } = this;
-    const { success, guessedWords, guessCount } = this.props;
+    const { success, guessedWords, guessCount, giveUp } = this.props;
+
     return (
       <div className="container">
         <header className="App-header">
@@ -41,7 +42,7 @@ export class UncontrolledApp extends Component {
         </header>
         <main>
           <InputSearch />
-          <SuccessMessage success={success} />
+          <SuccessMessage success={success} giveUp={giveUp} />
           <NewWordBtn clearData={newWordBtnClick} success={success} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
         </main>
@@ -52,12 +53,13 @@ export class UncontrolledApp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {success, guessedWords, secretWord, guessCount} = state;
+  const {success, guessedWords, secretWord, guessCount, giveUp} = state;
   return {
     success,
     guessedWords,
     secretWord,
-    guessCount
+    guessCount,
+    giveUp
   }
 }
 
