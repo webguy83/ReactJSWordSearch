@@ -3,30 +3,6 @@
   display: inline-block;
 }
 
-.newWordBtn, .giveUpBtn {
-  color: white;
-  text-transform: uppercase;
-  transition: all .6s;
-}
-
-.newWordBtn {
-  background-color: green;
-}
-
-.giveUpBtn {
-  background-color: red;
-  margin-left: 1rem;
-}
-
-.newWordBtn:hover,
-.newWordBtn:active,
-.giveUpBtn:hover,
-.giveUpBtn:active {
-  background-color: yellow;
-  color:black;
-  transition: all .6s;
-}
-
 .hideSecretWord {
   background-color: black;
   color: transparent;
@@ -39,8 +15,13 @@
   transition: all .3s;
 }
 
-.guessBtn {
+.searchInput {
+  vertical-align: middle;
+}
+
+.guessBtn, .giveUpBtn {
   margin-left: 1rem;
+  vertical-align: middle
 }
 
 .instructionsTxt, .results {

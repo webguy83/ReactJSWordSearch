@@ -28,7 +28,7 @@ export class UnconnectedInputSearch extends Component {
             <form data-test="component-inputsearch">
                 {success ? null :
                     <Auxiliary><input data-test="component-inputbox" ref={this.guessInputBox} className="searchInput" type="text" name="search" />
-                        <button className="guessBtn" data-test="component-submitBtn" onClick={this.guessWordClicked} type="submit">Guess</button>
+                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={this.guessWordClicked} type="submit">Guess</button>
                         <GiveUpBtn giveUpAndShowWord={() => { }} />
                     </Auxiliary>
                 }

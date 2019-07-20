@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const NewWord = (props) => {
     const { success, clearData } = props;
     return (
-        success ? <button onClick={clearData} className="newWordBtn" data-test="test-new-word-btn">New Word</button> : null
+        success ? <button onClick={clearData} className="btn btn-success btn-sm newWordBtn" data-test="test-new-word-btn">New Word</button> : null
     );
 };
 
