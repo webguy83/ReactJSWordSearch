@@ -25,15 +25,15 @@ export class UnconnectedInputSearch extends Component {
 
     giveUpClickBtn = (e) => {
         e.preventDefault()
-        this.props.giveUp();
+        this.props.giveUpAction();
     }
 
     render() {
         const { giveUpClickBtn, guessInputBox, guessWordClicked } = this;
-        const { success } = this.props;
+        const { success, giveUp } = this.props;
         return (
             <form data-test="component-inputsearch">
-                {success ? null :
+                {success || giveUp ? null :
                     <Auxiliary><input data-test="component-inputbox" ref={guessInputBox} className="searchInput" type="text" name="search" />
                         <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={guessWordClicked} type="submit">Guess</button>
                         <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
@@ -45,9 +45,10 @@ export class UnconnectedInputSearch extends Component {
 };
 
 const mapStateToProps = (state) => {
-    const { success } = state
+    const { success, giveUp } = state
     return {
-        success
+        success,
+        giveUp
     }
 }
 
@@ -56,7 +57,7 @@ const mapDispatchToProps = (dispatch) => {
         guessWord: (guessedWord) => {
             return dispatch(guessWord(guessedWord))
         },
-        giveUp: () => {
+        giveUpAction: () => {
             return dispatch(giveUp());
         }
     }

@@ -12,11 +12,11 @@ const setup = (initState = {}) => {
 }
 
 describe('render', () => {
-    describe('word has not been guessed', () => {
+    describe('word has not been guessed or given up', () => {
         let wrapper;
 
         beforeEach(() => {
-            wrapper = setup({ success: false })
+            wrapper = setup({ success: false, giveUp: false })
         })
 
         it('renders without error', () => {
@@ -35,27 +35,53 @@ describe('render', () => {
             expect(wrapper.find(GiveUpBtn).length).toBe(1);
         })
     })
-    describe('word has been guessed', () => {
-        let wrapper;
+    describe('word has been guessed or given up', () => {
 
-        beforeEach(() => {
-            wrapper = setup({ success: true })
-        })
-
-        it('renders without error', () => {
+        it('renders without error if guessed correctly', () => {
+            const wrapper = setup({ success: true });
             const component = elementAttr(wrapper, 'component-inputsearch');
             expect(component.length).toBe(1);
-        })
-        it('does not render an input box', () => {
+        });
+
+        it('renders without error if given up', () => {
+            const wrapper = setup({ giveUp: true });
+            const component = elementAttr(wrapper, 'component-inputsearch');
+            expect(component.length).toBe(1);
+        });
+
+        it('does not render an input box if successfully guessed', () => {
+            const wrapper = setup({ success: true });
             const component = elementAttr(wrapper, 'component-inputbox');
             expect(component.length).toBe(0);
         })
-        it('does not render a submit btn', () => {
+
+        it('does not render an input box if given up', () => {
+            const wrapper = setup({ giveUp: true });
+            const component = elementAttr(wrapper, 'component-inputbox');
+            expect(component.length).toBe(0);
+        });
+
+        it('does not render a submit btn if successfully guessed', () => {
+            const wrapper = setup({ success: true });
             const component = elementAttr(wrapper, 'component-submitBtn');
             expect(component.length).toBe(0)
-        })
-        it('does not render the giveup btn', () => {
+        });
+
+        it('does not render a submit btn if given up', () => {
+            const wrapper = setup({ giveUp: true });
+            const component = elementAttr(wrapper, 'component-submitBtn');
+            expect(component.length).toBe(0)
+        });
+
+        it('does not render the giveup btn if succesfully guessed', () => {
+            const wrapper = setup({ success: true });
             expect(wrapper.find(GiveUpBtn).length).toBe(0);
+        })
+
+        it('does not render the success btn if given up', () => {
+            const wrapper = setup({ giveUp: true });
+            const component = elementAttr(wrapper, 'component-submitBtn');
+            expect(component.length).toBe(0);
         })
     })
 });
@@ -71,6 +97,12 @@ describe('redux props', () => {
         const wrapper = setup();
         const guessWordProp = wrapper.instance().props.guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
+    })
+    it('has a giveUp piece of state as prop', () => {
+        const giveUp = true;
+        const wrapper = setup({ giveUp });
+        const giveUpProp = wrapper.instance().props.giveUp;
+        expect(giveUpProp).toBe(giveUp);
     })
 })
 
@@ -115,7 +147,7 @@ describe('guess word action creator call', () => {
         const guessWordArg = guessWordMock.mock.calls[0][0];
         expect(guessWordArg).toBe(guessedWord);
     });
-    
+
     it('should clear the input field after submitting', () => {
         guessedWord = "bambideer";
         wrapper.instance().guessInputBox.current = { value: guessedWord }
