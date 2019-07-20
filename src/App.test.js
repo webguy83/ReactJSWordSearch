@@ -89,7 +89,7 @@ describe('redux props', () => {
 it('should run getSecretWord on mount', () => {
   const getSecretWordMock = jest.fn();
 
-  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} success={true} giveUp={false} guessedWords={[]} guessCount={[1, 2]} />);
+  const wrapper = shallow(<UncontrolledApp getSecretWord={getSecretWordMock} secretWord="" success={true} giveUp={false} guessedWords={[]} guessCount={[1, 2]} />);
   wrapper.instance().componentDidMount();
 
   const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
@@ -116,6 +116,7 @@ describe('after clicking New Word button it should perform the following', () =>
       clearGuessCount={clearGuessCountMock}
       giveUp={false}
       success={true}
+      secretWord=""
       guessedWords={[]}
       guessCount={[1, 2]} />);
     wrapper.instance().newWordBtnClick();

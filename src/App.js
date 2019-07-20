@@ -31,9 +31,10 @@ export class UncontrolledApp extends Component {
     const { secretWord } = this.props;
     return secretWord ? <span className="hideSecretWord">{secretWord}</span> : null
   }
+
   render() {
     const { newWordBtnClick, returnAnswer } = this;
-    const { success, guessedWords, guessCount, giveUp } = this.props;
+    const { success, guessedWords, guessCount, giveUp, secretWord } = this.props;
 
     return (
       <div className="container">
@@ -42,7 +43,7 @@ export class UncontrolledApp extends Component {
         </header>
         <main>
           <InputSearch />
-          <SuccessMessage success={success} giveUp={giveUp} />
+          <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
           <NewWordBtn clearData={newWordBtnClick} success={success} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
         </main>

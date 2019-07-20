@@ -7,7 +7,8 @@ import SuccessMessage from './SuccessMessage';
 
 const defaultProps = {
     success: true,
-    giveUp: false
+    giveUp: false,
+    secretWord: "bunk"
 }
 
 const setup = (props = {}) => {
@@ -36,25 +37,44 @@ describe('success message', () => {
 })
 
 describe('giveUp message', () => {
+    let wrapper;
+    let component;
+
+    beforeEach(() => {
+        wrapper = setup({ success: false, giveUp: true });
+        component = elementAttr(wrapper, "test-giveup-message");
+    });
+
     it('should render with no errors', () => {
-        const wrapper = setup({ success: false, giveUp: true });
-        const component = elementAttr(wrapper, "test-giveup-message");
         expect(component.length).toBe(1);
     })
 
     it('should render text if props are true', () => {
-        const wrapper = setup({ success: false, giveUp: true });
-        const component = elementAttr(wrapper, "test-giveup-message");
         expect(component.text().length).not.toBe(0);
     })
 
     it('should render text if giveup prop is true', () => {
-        const wrapper = setup({ success: false, giveUp: true })
-        const component = elementAttr(wrapper, "test-giveup-message");
-        expect(component.length).toBe(1);
+        expect(component.text().length).toBeGreaterThan(0);
     })
 });
 
+describe('secretWord', () => {
+    let wrapper;
+    let component;
+
+    beforeEach(() => {
+        wrapper = setup({success: false, giveUp: true, secretWord: "crap"});
+        component = elementAttr(wrapper, "test-secret-word-failed-msg");
+    })
+
+    it('should render with no errors', () => {
+        expect(component.length).toBe(1);
+    })
+    it('should render the word text', () => {
+        expect(component.text().length).toBeGreaterThan(0);
+    });
+})
+
 it('does not throw a warning with expected props', () => {
-    checkProps(SuccessMessage, { success: false, giveUp: false })
+    checkProps(SuccessMessage, { success: false, giveUp: false, secretWord: "" })
 })

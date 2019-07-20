@@ -31,3 +31,7 @@
 .guessCount {
   font-weight: bold;
 }
+
+.secretWordFailedMsg {
+  font-weight: bold;
+}
