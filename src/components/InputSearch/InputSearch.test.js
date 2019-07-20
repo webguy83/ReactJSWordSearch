@@ -54,6 +54,9 @@ describe('render', () => {
             const component = elementAttr(wrapper, 'component-submitBtn');
             expect(component.length).toBe(0)
         })
+        it('does not render the giveup btn', () => {
+            expect(wrapper.find(GiveUpBtn).length).toBe(0);
+        })
     })
 });
 
