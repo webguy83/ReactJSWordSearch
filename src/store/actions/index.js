@@ -8,7 +8,8 @@ export const actionTypes = {
     INC_GUESS_COUNT: "INC_GUESS_COUNT",
     RESET_SUCCESS: "RESET_SUCCESS",
     CLEAR_GUESS_WORDS: "CLEAR_GUESS_WORDS",
-    CLEAR_GUESS_COUNT: "CLEAR_GUESS_COUNT"
+    CLEAR_GUESS_COUNT: "CLEAR_GUESS_COUNT",
+    GIVE_UP: "GIVE_UP"
 }
 
 export const resetSuccess = () => {
@@ -26,6 +27,12 @@ export const clearGuessWords = () => {
 export const clearGuessCount = () => {
     return {
         type: actionTypes.CLEAR_GUESS_COUNT
+    }
+}
+
+export const giveUp = () => {
+    return {
+        type: actionTypes.GIVE_UP
     }
 }
 

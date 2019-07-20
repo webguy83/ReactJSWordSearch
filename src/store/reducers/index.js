@@ -3,10 +3,12 @@ import success from './success';
 import guessedWords from './guessedWords';
 import secretWord from './secretWord';
 import guessCount from './guessCount';
+import giveUp from './giveUp';
 
 export default combineReducers({
     success,
     guessedWords,
     secretWord,
-    guessCount
+    guessCount,
+    giveUp
 })

@@ -1,4 +1,4 @@
-.successMsg {
+.successMsg, .failMsg {
   margin-top: 1rem;
   display: inline-block;
 }
