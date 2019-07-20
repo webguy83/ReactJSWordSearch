@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
-import CongratsMessage from './components/Congrats/Congrats';
+import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import NewWordBtn from './components/NewWord/NewWord';
 import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount } from './store/actions';
 import './App.css';
@@ -41,7 +41,7 @@ export class UncontrolledApp extends Component {
         </header>
         <main>
           <InputSearch />
-          <CongratsMessage success={success} />
+          <SuccessMessage success={success} />
           <NewWordBtn clearData={newWordBtnClick} success={success} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
         </main>
