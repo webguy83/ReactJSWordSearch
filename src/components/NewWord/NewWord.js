@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const NewWord = (props) => {
-    const { success, clearData } = props;
+    const { success, clearData, giveUp } = props;
     return (
-        success ? <button onClick={clearData} className="btn btn-success btn-sm newWordBtn" data-test="test-new-word-btn">New Word</button> : null
+        success || giveUp ? <button onClick={clearData} className="btn btn-success btn-sm newWordBtn" data-test="test-new-word-btn">New Word</button> : null
     );
 };
 
 NewWord.propTypes = {
     success: PropTypes.bool.isRequired,
-    clearData: PropTypes.func.isRequired
+    clearData: PropTypes.func.isRequired,
+    giveUp: PropTypes.bool.isRequired
 }
 
 export default NewWord;

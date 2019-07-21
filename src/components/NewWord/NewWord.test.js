@@ -7,7 +7,8 @@ import NewWord from './NewWord';
 
 const defaultProps = {
     success: true,
-    clearData: () => {}
+    giveUp: false,
+    clearData: () => { }
 }
 
 const setup = (props = {}) => {
@@ -16,8 +17,14 @@ const setup = (props = {}) => {
 }
 
 describe('rendering conditons', () => {
-    it('should render with no errors', () => {
+    it('should render with no errors on success', () => {
         const wrapper = setup();
+        const comp = elementAttr(wrapper, 'test-new-word-btn');
+        expect(comp.length).toBe(1);
+    });
+
+    it('should render with no errors on giveup', () => {
+        const wrapper = setup({ success: false, giveUp: true });
         const comp = elementAttr(wrapper, 'test-new-word-btn');
         expect(comp.length).toBe(1);
     });
@@ -28,7 +35,13 @@ describe('rendering conditons', () => {
         expect(comp.exists()).toBe(true);
     });
 
-    it('it should not render when success is false', () => {
+    it('should render only when giveup is true', () => {
+        const wrapper = setup({ success: false, giveUp: true });
+        const comp = elementAttr(wrapper, 'test-new-word-btn');
+        expect(comp.exists()).toBe(true);
+    });
+
+    it('it should not render when success or giveup is false', () => {
         const wrapper = setup({ success: false });
         const comp = elementAttr(wrapper, 'test-new-word-btn');
         expect(comp.exists()).toBe(false);

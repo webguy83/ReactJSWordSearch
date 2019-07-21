@@ -44,7 +44,7 @@ export class UncontrolledApp extends Component {
         <main>
           <InputSearch />
           <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
-          <NewWordBtn clearData={newWordBtnClick} success={success} />
+          <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
         </main>
         <footer>Hover over the box to reveal the answer: {returnAnswer()}</footer>
