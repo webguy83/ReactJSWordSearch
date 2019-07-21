@@ -77,6 +77,11 @@ describe('redux props', () => {
     const wrapper = setup({ giveUp });
     const giveUpProp = wrapper.instance().props.giveUp;
     expect(giveUpProp).toBe(giveUp);
+  });
+  it('should have access to clearGiveUp function on props', () => {
+    const wrapper = setup();
+    const clearGiveUpProp = wrapper.instance().props.clearGiveUp;
+    expect(clearGiveUpProp).toBeInstanceOf(Function);
   })
 
   it('should have getSecretWord action creator as function on the props', () => {
@@ -102,18 +107,20 @@ describe('after clicking New Word button it should perform the following', () =>
   let getSecretWordMock;
   let clearGuessWordsMock;
   let clearGuessCountMock;
+  let clearGiveUpMock;
 
   beforeEach(() => {
     resetSuccessMock = jest.fn();
     getSecretWordMock = jest.fn();
     clearGuessWordsMock = jest.fn();
     clearGuessCountMock = jest.fn();
-
+    clearGiveUpMock = jest.fn();
 
     const wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock}
       getSecretWord={getSecretWordMock}
       clearGuessWords={clearGuessWordsMock}
       clearGuessCount={clearGuessCountMock}
+      clearGiveUp={clearGiveUpMock}
       giveUp={false}
       success={true}
       secretWord=""
@@ -133,6 +140,9 @@ describe('after clicking New Word button it should perform the following', () =>
   })
   it('runs getSecretWord function on button click', () => {
     expect(getSecretWordMock.mock.calls.length).toBe(1);
+  });
+  it('run clearGiveUp function on button click', () => {
+    expect(clearGiveUpMock.mock.calls.length).toBe(1);
   })
 })
 

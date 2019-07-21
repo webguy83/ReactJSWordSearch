@@ -3,7 +3,7 @@ import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import NewWordBtn from './components/NewWord/NewWord';
-import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount } from './store/actions';
+import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp } from './store/actions';
 import './App.css';
 
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ export class UncontrolledApp extends Component {
   }
 
   newWordBtnClick = () => {
-    const { resetSuccess, clearGuessWords, clearGuessCount, getSecretWord } = this.props;
+    const { resetSuccess, clearGuessWords, clearGuessCount, getSecretWord, clearGiveUp } = this.props;
     // reset the game with a new word from server
     // set success to false
     resetSuccess();
@@ -23,6 +23,8 @@ export class UncontrolledApp extends Component {
     clearGuessWords();
     // set guesscount to 1
     clearGuessCount();
+    // set giveUp to false
+    clearGiveUp();
     // load a new word from server
     getSecretWord();
   }
@@ -77,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     clearGuessCount: () => {
       return dispatch(clearGuessCount());
+    },
+    clearGiveUp: () => {
+      return dispatch(clearGiveUp());
     }
   }
 }
