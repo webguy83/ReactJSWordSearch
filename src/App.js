@@ -3,6 +3,7 @@ import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import NewWordBtn from './components/NewWord/NewWord';
+import EnterSecretWordBtn from './components/EnterSecretWord/EnterSecretWord';
 import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp } from './store/actions';
 import './App.css';
 
@@ -29,27 +30,33 @@ export class UncontrolledApp extends Component {
     getSecretWord();
   }
 
+  enterSecretWord = () => {
+
+  }
+
   returnAnswer = () => {
     const { secretWord } = this.props;
     return secretWord ? <span className="hideSecretWord">{secretWord}</span> : null
   }
 
   render() {
-    const { newWordBtnClick, returnAnswer } = this;
+    const { newWordBtnClick, returnAnswer, enterSecretWord } = this;
     const { success, guessedWords, guessCount, giveUp, secretWord } = this.props;
 
     return (
       <div className="container">
         <header className="App-header">
-          <h1>Search this lucky word</h1>
+          <h1>Guess the Word</h1>
         </header>
         <main>
           <InputSearch />
           <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
           <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
+          <p>Hover over the box to reveal the answer: {returnAnswer()}</p>
+          <EnterSecretWordBtn enterSecretWord={enterSecretWord} />
         </main>
-        <footer>Hover over the box to reveal the answer: {returnAnswer()}</footer>
+        <footer>&copy; Curtis Yacboski</footer>
       </div>
     );
   }

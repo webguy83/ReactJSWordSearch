@@ -3,6 +3,7 @@ import App, { UncontrolledApp } from './App';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import NewWordBtn from './components/NewWord/NewWord';
+import EnterSecretWordBtn from './components/EnterSecretWord/EnterSecretWord';
 import { storeFactory } from './utils/testingFunctions';
 
 
@@ -36,6 +37,9 @@ describe('render', () => {
     expect(wrapper.find(NewWordBtn).length).toBe(1);
   })
 
+  it('renders an enterSecretWords button', () => {
+    expect(wrapper.find(EnterSecretWordBtn).length).toBe(1);
+  })
 })
 
 describe('redux props', () => {
