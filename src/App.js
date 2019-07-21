@@ -4,16 +4,12 @@ import GuessedWords from './components/GuessedWords/GuessedWords';
 import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import NewWordBtn from './components/NewWord/NewWord';
 import EnterSecretWordBtn from './components/EnterSecretWord/EnterSecretWord';
-import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp } from './store/actions';
+import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp, togglePlayMode } from './store/actions';
 import './App.css';
 
 import { connect } from 'react-redux';
 
 export class UncontrolledApp extends Component {
-
-  state = {
-    playMode: true
-  }
 
   componentDidMount() {
     this.props.getSecretWord();
@@ -34,7 +30,7 @@ export class UncontrolledApp extends Component {
   }
 
   enterSecretWordClick = () => {
-    const { resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp } = this.props;
+    const { resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp, togglePlayMode } = this.props;
     // set success to false
     resetSuccess();
     // clear guessedWords to an empty array
@@ -43,10 +39,8 @@ export class UncontrolledApp extends Component {
     clearGuessCount();
     // set giveUp to false
     clearGiveUp();
-
-    this.setState({
-      playMode: false
-    })
+    // toggle playMode to false
+    togglePlayMode();
   }
 
   returnAnswer = () => {
@@ -56,7 +50,7 @@ export class UncontrolledApp extends Component {
 
   render() {
     const { newWordBtnClick, returnAnswer, enterSecretWordClick } = this;
-    const { success, guessedWords, guessCount, giveUp, secretWord } = this.props;
+    const { success, guessedWords, guessCount, giveUp, secretWord, playMode } = this.props;
 
     return (
       <div className="container">
@@ -65,11 +59,13 @@ export class UncontrolledApp extends Component {
         </header>
         <main>
           <InputSearch />
-          <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
-          <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
-          <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
-          <p>Hover over the box to reveal the answer: {returnAnswer()}</p>
-          <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
+          <div data-test="test-playMode-group" style={{ display: playMode ? "block" : "none" }}>
+            <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
+            <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
+            <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
+            <p>Hover over the box to reveal the answer: {returnAnswer()}</p>
+            <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
+          </div>
         </main>
         <footer>&copy; Curtis Yacboski</footer>
       </div>
@@ -78,13 +74,14 @@ export class UncontrolledApp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const {success, guessedWords, secretWord, guessCount, giveUp} = state;
+  const { success, guessedWords, secretWord, guessCount, giveUp, playMode } = state;
   return {
     success,
     guessedWords,
     secretWord,
     guessCount,
-    giveUp
+    giveUp,
+    playMode
   }
 }
 
@@ -104,6 +101,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     clearGiveUp: () => {
       return dispatch(clearGiveUp());
+    },
+    togglePlayMode: () => {
+      return dispatch(togglePlayMode());
     }
   }
 }

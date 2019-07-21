@@ -4,11 +4,13 @@ import guessedWords from './guessedWords';
 import secretWord from './secretWord';
 import guessCount from './guessCount';
 import giveUp from './giveUp';
+import playMode from './playMode';
 
 export default combineReducers({
     success,
     guessedWords,
     secretWord,
     guessCount,
-    giveUp
+    giveUp,
+    playMode
 })

@@ -1,12 +1,12 @@
 import React from 'react';
 import App, { UncontrolledApp } from './App';
+
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import NewWordBtn from './components/NewWord/NewWord';
 import EnterSecretWordBtn from './components/EnterSecretWord/EnterSecretWord';
-import { storeFactory } from './utils/testingFunctions';
 
-
+import { storeFactory, elementAttr } from './utils/testingFunctions';
 import { shallow } from 'enzyme';
 
 const setup = (initState = {}) => {
@@ -39,9 +39,6 @@ describe('render', () => {
 
   it('renders an enterSecretWords button', () => {
     expect(wrapper.find(EnterSecretWordBtn).length).toBe(1);
-  })
-  it('should begin state with playmode to true', () => {
-    expect(wrapper.state().playMode).toBe(true);
   })
 })
 
@@ -98,6 +95,19 @@ describe('redux props', () => {
   })
 })
 
+describe('app visuals', () => {
+  it('should show the playMode-group if playMode redux state is true', () => {
+    const wrapper = setup({ playMode: true });
+    const comp = elementAttr(wrapper, "test-playMode-group");
+    expect(comp.prop("style").display).toBe("block");
+  });
+  it('should hide the playMode-group if playMode redux state is false', () => {
+    const wrapper = setup({ playMode: false });
+    const comp = elementAttr(wrapper, "test-playMode-group");
+    expect(comp.prop("style").display).toBe("none");
+  });
+})
+
 it('should run getSecretWord on mount', () => {
   const getSecretWordMock = jest.fn();
 
@@ -115,6 +125,7 @@ describe('after clicking New Word button it should perform the following', () =>
   let clearGuessWordsMock;
   let clearGuessCountMock;
   let clearGiveUpMock;
+  let togglePlayModeMock;
 
   beforeEach(() => {
     resetSuccessMock = jest.fn();
@@ -122,17 +133,20 @@ describe('after clicking New Word button it should perform the following', () =>
     clearGuessWordsMock = jest.fn();
     clearGuessCountMock = jest.fn();
     clearGiveUpMock = jest.fn();
+    togglePlayModeMock = jest.fn();
 
     const wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock}
       getSecretWord={getSecretWordMock}
       clearGuessWords={clearGuessWordsMock}
       clearGuessCount={clearGuessCountMock}
       clearGiveUp={clearGiveUpMock}
+      togglePlayMode={togglePlayModeMock}
       giveUp={false}
       success={true}
       secretWord=""
       guessedWords={[]}
-      guessCount={[1, 2]} />);
+      guessCount={[1, 2]} />
+    );
     wrapper.instance().newWordBtnClick();
   })
 
@@ -159,6 +173,7 @@ describe('after clicking Enter Secret Word button it should perform the followin
   let clearGuessWordsMock;
   let clearGuessCountMock;
   let clearGiveUpMock;
+  let togglePlayModeMock;
 
   let wrapper;
 
@@ -168,12 +183,15 @@ describe('after clicking Enter Secret Word button it should perform the followin
     clearGuessWordsMock = jest.fn();
     clearGuessCountMock = jest.fn();
     clearGiveUpMock = jest.fn();
+    togglePlayModeMock = jest.fn();
+
 
     wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock}
       getSecretWord={getSecretWordMock}
       clearGuessWords={clearGuessWordsMock}
       clearGuessCount={clearGuessCountMock}
       clearGiveUp={clearGiveUpMock}
+      togglePlayMode={togglePlayModeMock}
       giveUp={false}
       success={true}
       secretWord=""
@@ -182,9 +200,6 @@ describe('after clicking Enter Secret Word button it should perform the followin
     wrapper.instance().enterSecretWordClick();
   })
 
-  it('should set the state of playMode to false', () => {
-    expect(wrapper.state().playMode).toBe(false);
-  })
   it('run resetSuccess function on button click', () => {
     expect(resetSuccessMock.mock.calls.length).toBe(1);
   })
@@ -196,6 +211,9 @@ describe('after clicking Enter Secret Word button it should perform the followin
   })
   it('run clearGiveUp function on button click', () => {
     expect(clearGiveUpMock.mock.calls.length).toBe(1);
+  })
+  it('run togglePlayMode function on button click', () => {
+    expect(togglePlayModeMock.mock.calls.length).toBe(1);
   })
 })
 

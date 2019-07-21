@@ -10,7 +10,8 @@ export const actionTypes = {
     CLEAR_GUESS_WORDS: "CLEAR_GUESS_WORDS",
     CLEAR_GUESS_COUNT: "CLEAR_GUESS_COUNT",
     GIVE_UP: "GIVE_UP",
-    CLEAR_GIVE_UP: "CLEAR_GIVE_UP"
+    CLEAR_GIVE_UP: "CLEAR_GIVE_UP",
+    TOGGLE_PLAYMODE: "TOGGLE_PLAYMODE"
 }
 
 export const resetSuccess = () => {
@@ -40,6 +41,12 @@ export const giveUp = () => {
 export const clearGiveUp = () => {
     return {
         type: actionTypes.CLEAR_GIVE_UP
+    }
+}
+
+export const togglePlayMode = () => {
+    return {
+        type: actionTypes.TOGGLE_PLAYMODE
     }
 }
 
