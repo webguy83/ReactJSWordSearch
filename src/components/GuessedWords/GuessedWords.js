@@ -12,7 +12,7 @@ const GuessedWords = (props) => {
     }
     return (
         <div data-test="guessed-words-container" className="results">
-            {guessedWords.length === 0 ? <p data-test="guessed-words-instructions" className="instructionsTxt">Try to guess the word haha!</p>
+            {guessedWords.length === 0 ? <p data-test="guessed-words-instructions" className="instructionsTxt">Try to guess the 5 letter word. Good luck!</p>
                 :
                 <Auxiliary>
                     <div data-test="guessed-words">

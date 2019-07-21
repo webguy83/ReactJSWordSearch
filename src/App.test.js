@@ -40,6 +40,9 @@ describe('render', () => {
   it('renders an enterSecretWords button', () => {
     expect(wrapper.find(EnterSecretWordBtn).length).toBe(1);
   })
+  it('should begin state with playmode to true', () => {
+    expect(wrapper.state().playMode).toBe(true);
+  })
 })
 
 describe('redux props', () => {
@@ -145,6 +148,52 @@ describe('after clicking New Word button it should perform the following', () =>
   it('runs getSecretWord function on button click', () => {
     expect(getSecretWordMock.mock.calls.length).toBe(1);
   });
+  it('run clearGiveUp function on button click', () => {
+    expect(clearGiveUpMock.mock.calls.length).toBe(1);
+  })
+})
+
+describe('after clicking Enter Secret Word button it should perform the following', () => {
+  let resetSuccessMock;
+  let getSecretWordMock;
+  let clearGuessWordsMock;
+  let clearGuessCountMock;
+  let clearGiveUpMock;
+
+  let wrapper;
+
+  beforeEach(() => {
+    resetSuccessMock = jest.fn();
+    getSecretWordMock = jest.fn();
+    clearGuessWordsMock = jest.fn();
+    clearGuessCountMock = jest.fn();
+    clearGiveUpMock = jest.fn();
+
+    wrapper = shallow(<UncontrolledApp resetSuccess={resetSuccessMock}
+      getSecretWord={getSecretWordMock}
+      clearGuessWords={clearGuessWordsMock}
+      clearGuessCount={clearGuessCountMock}
+      clearGiveUp={clearGiveUpMock}
+      giveUp={false}
+      success={true}
+      secretWord=""
+      guessedWords={[]}
+      guessCount={[1, 2]} />);
+    wrapper.instance().enterSecretWordClick();
+  })
+
+  it('should set the state of playMode to false', () => {
+    expect(wrapper.state().playMode).toBe(false);
+  })
+  it('run resetSuccess function on button click', () => {
+    expect(resetSuccessMock.mock.calls.length).toBe(1);
+  })
+  it('run clearGuessWords function on button click,', () => {
+    expect(clearGuessWordsMock.mock.calls.length).toBe(1);
+  })
+  it('runs clearGuessCount function on button click', () => {
+    expect(clearGuessCountMock.mock.calls.length).toBe(1);
+  })
   it('run clearGiveUp function on button click', () => {
     expect(clearGiveUpMock.mock.calls.length).toBe(1);
   })

@@ -11,13 +11,16 @@ import { connect } from 'react-redux';
 
 export class UncontrolledApp extends Component {
 
+  state = {
+    playMode: true
+  }
+
   componentDidMount() {
     this.props.getSecretWord();
   }
 
   newWordBtnClick = () => {
     const { resetSuccess, clearGuessWords, clearGuessCount, getSecretWord, clearGiveUp } = this.props;
-    // reset the game with a new word from server
     // set success to false
     resetSuccess();
     // clear guessedWords to an empty array
@@ -30,8 +33,20 @@ export class UncontrolledApp extends Component {
     getSecretWord();
   }
 
-  enterSecretWord = () => {
+  enterSecretWordClick = () => {
+    const { resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp } = this.props;
+    // set success to false
+    resetSuccess();
+    // clear guessedWords to an empty array
+    clearGuessWords();
+    // set guesscount to 1
+    clearGuessCount();
+    // set giveUp to false
+    clearGiveUp();
 
+    this.setState({
+      playMode: false
+    })
   }
 
   returnAnswer = () => {
@@ -40,7 +55,7 @@ export class UncontrolledApp extends Component {
   }
 
   render() {
-    const { newWordBtnClick, returnAnswer, enterSecretWord } = this;
+    const { newWordBtnClick, returnAnswer, enterSecretWordClick } = this;
     const { success, guessedWords, guessCount, giveUp, secretWord } = this.props;
 
     return (
@@ -54,7 +69,7 @@ export class UncontrolledApp extends Component {
           <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
           <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
           <p>Hover over the box to reveal the answer: {returnAnswer()}</p>
-          <EnterSecretWordBtn enterSecretWord={enterSecretWord} />
+          <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
         </main>
         <footer>&copy; Curtis Yacboski</footer>
       </div>
