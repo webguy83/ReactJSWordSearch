@@ -41,3 +41,7 @@ footer {
   font-style: italic;
   text-align: right;
 }
+
+.instructions-submit-word {
+  margin-bottom: .3rem;
+}

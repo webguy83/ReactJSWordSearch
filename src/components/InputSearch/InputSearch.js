@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { guessWord, giveUp } from '../../store/actions';
+import { guessWord, giveUp, togglePlayMode } from '../../store/actions';
 import GiveUpBtn from '../GiveUp/GiveUp';
 
 import { Auxiliary } from '../../utils/testingFunctions';
@@ -23,20 +23,29 @@ export class UnconnectedInputSearch extends Component {
         guessInputBox.current.value = "";
     }
 
+    submitUserWordClicked = (e) => {
+        e.preventDefault();
+        this.props.togglePlayMode();
+    }
+
     giveUpClickBtn = (e) => {
         e.preventDefault()
         this.props.giveUpAction();
     }
 
     render() {
-        const { giveUpClickBtn, guessInputBox, guessWordClicked } = this;
-        const { success, giveUp } = this.props;
+        const { giveUpClickBtn, guessInputBox, guessWordClicked, submitUserWordClicked } = this;
+        const { success, giveUp, playMode } = this.props;
         return (
             <form data-test="component-inputsearch">
                 {success || giveUp ? null :
-                    <Auxiliary><input data-test="component-inputbox" ref={guessInputBox} className="searchInput" type="text" name="search" />
-                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={guessWordClicked} type="submit">Guess</button>
-                        <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
+                    <Auxiliary>
+                        <p className="instructions-submit-word" style={{display: playMode ? "none" : "block"}} data-test="test-instructions-submit-word">Enter a word for someone else to guess!</p>
+                        <input data-test="component-inputbox" ref={guessInputBox} className="searchInput" type="text" name="search" />
+                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={/*playMode ? */guessWordClicked /*: submitUserWordClicked*/} type="submit">{playMode ? "Guess" : "Submit"}</button>
+                        <span data-test="test-giveUpBtn" style={{ display: playMode ? "inline" : "none" }}>
+                            <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
+                        </span>
                     </Auxiliary>
                 }
             </form>
@@ -45,10 +54,11 @@ export class UnconnectedInputSearch extends Component {
 };
 
 const mapStateToProps = (state) => {
-    const { success, giveUp } = state
+    const { success, giveUp, playMode } = state
     return {
         success,
-        giveUp
+        giveUp,
+        playMode
     }
 }
 
@@ -59,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         giveUpAction: () => {
             return dispatch(giveUp());
+        },
+        togglePlayMode: () => {
+            return dispatch(togglePlayMode());
         }
     }
 }

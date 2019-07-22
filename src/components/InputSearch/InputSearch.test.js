@@ -86,6 +86,39 @@ describe('render', () => {
     })
 });
 
+describe('app visuals', () => {
+    it('should not show the giveUp button if playMode is false', () => {
+        const wrapper = setup({ playMode: false });
+        const component = elementAttr(wrapper, 'test-giveUpBtn');
+        expect(component.prop('style').display).toBe('none');
+    });
+    it('should show the giveUp button if playMode is true', () => {
+        const wrapper = setup({ playMode: true });
+        const component = elementAttr(wrapper, 'test-giveUpBtn');
+        expect(component.prop('style').display).toBe('inline');
+    });
+    it('should show the text Submit on the submit btn when playmode is false', () => {
+        const wrapper = setup({ playMode: false });
+        const component = elementAttr(wrapper, 'component-submitBtn');
+        expect(component.text()).toBe("Submit");
+    });
+    it('should show the text Guess on the submit btn when playmode is true', () => {
+        const wrapper = setup();
+        const component = elementAttr(wrapper, 'component-submitBtn');
+        expect(component.text()).toBe("Guess");
+    });
+    it('should render intructions for entering word for someone else to guess', () => {
+        const wrapper  = setup({playMode: false});
+        const component = elementAttr(wrapper, 'test-instructions-submit-word');
+        expect(component.prop('style').display).toBe('block');
+    });
+    it('should not render intructions for entering word when user is in playMode', () => {
+        const wrapper  = setup();
+        const component = elementAttr(wrapper, 'test-instructions-submit-word');
+        expect(component.prop('style').display).toBe('none');
+    });
+})
+
 describe('redux props', () => {
     it('has a success piece of state as prop', () => {
         const success = true;
@@ -108,11 +141,13 @@ describe('redux props', () => {
 
 describe('guess word action creator call', () => {
     let guessWordMock;
+    let togglePlayModeMock;
     let wrapper;
     let guessedWord;
     beforeEach(() => {
         guessWordMock = jest.fn();
-        wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} />);
+        togglePlayModeMock = jest.fn();
+        wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} />);
     });
 
     it('should simulate a click and call guessWord on submit button', () => {
