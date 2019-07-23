@@ -24,7 +24,7 @@ describe('render', () => {
             expect(component.length).toBe(1);
         })
         it('renders an input box', () => {
-            const component = elementAttr(wrapper, "component-inputbox");
+            const component = elementAttr(wrapper, "test-component-inputbox");
             expect(component.length).toBe(1);
         })
         it('renders a submit btn', () => {
@@ -51,13 +51,13 @@ describe('render', () => {
 
         it('does not render an input box if successfully guessed', () => {
             const wrapper = setup({ success: true });
-            const component = elementAttr(wrapper, 'component-inputbox');
+            const component = elementAttr(wrapper, 'test-component-inputbox');
             expect(component.length).toBe(0);
         })
 
         it('does not render an input box if given up', () => {
             const wrapper = setup({ giveUp: true });
-            const component = elementAttr(wrapper, 'component-inputbox');
+            const component = elementAttr(wrapper, 'test-component-inputbox');
             expect(component.length).toBe(0);
         });
 
@@ -108,12 +108,12 @@ describe('app visuals', () => {
         expect(component.text()).toBe("Guess");
     });
     it('should render intructions for entering word for someone else to guess', () => {
-        const wrapper  = setup({playMode: false});
+        const wrapper = setup({ playMode: false });
         const component = elementAttr(wrapper, 'test-instructions-submit-word');
         expect(component.prop('style').display).toBe('block');
     });
     it('should not render intructions for entering word when user is in playMode', () => {
-        const wrapper  = setup();
+        const wrapper = setup();
         const component = elementAttr(wrapper, 'test-instructions-submit-word');
         expect(component.prop('style').display).toBe('none');
     });
@@ -143,16 +143,27 @@ describe('guess word action creator call', () => {
     let guessWordMock;
     let togglePlayModeMock;
     let wrapper;
-    let guessedWord;
+
     beforeEach(() => {
         guessWordMock = jest.fn();
         togglePlayModeMock = jest.fn();
         wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} />);
     });
 
+    describe('input change', () => {
+        it('should set the state of the input data onChange', () => {
+            const inputVal = "bunk";
+            const input = elementAttr(wrapper, "test-component-inputbox");
+            input.simulate('focus');
+            input.simulate('change', { target: { value: inputVal } })
+            expect(wrapper.state('inputData')).toBe(inputVal);
+        })
+    })
+
     it('should simulate a click and call guessWord on submit button', () => {
-        guessedWord = "bambideer";
-        wrapper.instance().guessInputBox.current = { value: guessedWord }
+        wrapper.setState({
+            inputData: "bambideer"
+        });
 
         const component = elementAttr(wrapper, "component-submitBtn");
         component.simulate('click', { preventDefault: () => { } });
@@ -162,8 +173,9 @@ describe('guess word action creator call', () => {
     });
 
     it('should not submit if input is empty', () => {
-        guessedWord = "";
-        wrapper.instance().guessInputBox.current = { value: guessedWord }
+        wrapper.setState({
+            inputData: ""
+        });
 
         const component = elementAttr(wrapper, "component-submitBtn");
         component.simulate('click', { preventDefault: () => { } });
@@ -173,8 +185,10 @@ describe('guess word action creator call', () => {
     })
 
     it('should call guessWord with input as arg', () => {
-        guessedWord = "bambideer";
-        wrapper.instance().guessInputBox.current = { value: guessedWord }
+        const guessedWord = "cowdodo";
+        wrapper.setState({
+            inputData: guessedWord
+        });
 
         const component = elementAttr(wrapper, "component-submitBtn");
         component.simulate('click', { preventDefault: () => { } });
@@ -184,13 +198,16 @@ describe('guess word action creator call', () => {
     });
 
     it('should clear the input field after submitting', () => {
-        guessedWord = "bambideer";
-        wrapper.instance().guessInputBox.current = { value: guessedWord }
+        const guessedWord = "andboomgoesthedinmite";
+
+        wrapper.setState({
+            inputData: guessedWord
+        });
 
         const component = elementAttr(wrapper, "component-submitBtn");
         component.simulate('click', { preventDefault: () => { } });
 
-        expect(wrapper.instance().guessInputBox.current.value).toBe("");
+        expect(wrapper.state("inputData")).toBe("");
     })
 })
 

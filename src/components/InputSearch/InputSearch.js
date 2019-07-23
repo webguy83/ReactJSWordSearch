@@ -8,19 +8,25 @@ import { Auxiliary } from '../../utils/testingFunctions';
 
 export class UnconnectedInputSearch extends Component {
 
-    constructor(props) {
-        super(props);
-        this.guessInputBox = React.createRef();
+    state = {
+        inputData: ""
+    }
+
+    inputChange = (e) => {
+        this.setState({
+            inputData: e.target.value
+        });
     }
 
     guessWordClicked = (e) => {
-        const { guessInputBox, props } = this
         e.preventDefault();
-        const guessedWord = guessInputBox.current.value;
+        const guessedWord = this.state.inputData;
         if (guessedWord && guessWord.length > 0) {
-            props.guessWord(guessedWord)
+            this.props.guessWord(guessedWord)
         }
-        guessInputBox.current.value = "";
+        this.setState({
+            inputData: ""
+        })
     }
 
     submitUserWordClicked = (e) => {
@@ -40,8 +46,8 @@ export class UnconnectedInputSearch extends Component {
             <form data-test="component-inputsearch">
                 {success || giveUp ? null :
                     <Auxiliary>
-                        <p className="instructions-submit-word" style={{display: playMode ? "none" : "block"}} data-test="test-instructions-submit-word">Enter a word for someone else to guess!</p>
-                        <input data-test="component-inputbox" ref={guessInputBox} className="searchInput" type="text" name="search" />
+                        <p className="instructions-submit-word" style={{ display: playMode ? "none" : "block" }} data-test="test-instructions-submit-word">Enter a word for someone else to guess!</p>
+                        <input data-test="test-component-inputbox" className="searchInput" type="text" name="search" onChange={this.inputChange} value={this.state.inputData} />
                         <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={/*playMode ? */guessWordClicked /*: submitUserWordClicked*/} type="submit">{playMode ? "Guess" : "Submit"}</button>
                         <span data-test="test-giveUpBtn" style={{ display: playMode ? "inline" : "none" }}>
                             <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
