@@ -34,12 +34,12 @@ export class UnconnectedInputSearch extends Component {
         e.preventDefault();
         const word = this.state.inputData;
         if (word && word.length > 0) {
-            setSecretWord(word)
+            setSecretWord(word);
+            togglePlayMode();
         }
         this.setState({
             inputData: ""
         });
-        togglePlayMode();
     }
 
     giveUpClickBtn = () => {
