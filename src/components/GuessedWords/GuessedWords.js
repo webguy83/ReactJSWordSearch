@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Auxiliary } from '../../utils/testingFunctions';
 
 const GuessedWords = (props) => {
-    const { guessedWords, guessCount, giveUp } = props;
+    const { guessedWords, guessCount, giveUp, secretWord } = props;
     let words;
     if (guessedWords.length > 0) {
         words = guessedWords.map((item, i) => {
@@ -12,7 +12,7 @@ const GuessedWords = (props) => {
     }
     return (
         <div data-test="guessed-words-container" className="results">
-            {guessedWords.length === 0 ? <p data-test="guessed-words-instructions" style={{ display: giveUp ? "none" : "block" }} className="instructionsTxt">Try to guess the 5 letter word. Good luck!</p>
+            {guessedWords.length === 0 ? <p data-test="guessed-words-instructions" style={{ display: giveUp ? "none" : "block" }} className="instructionsTxt">Try to guess the <span data-test="test-secret-word-length">{secretWord.length}</span> letter word. Good luck!</p>
                 :
                 <Auxiliary>
                     <div data-test="guessed-words">
@@ -44,7 +44,9 @@ GuessedWords.propTypes = {
             letterMatchCount: PropTypes.number.isRequired
         })
     ).isRequired,
-    guessCount: PropTypes.arrayOf(PropTypes.number).isRequired
+    guessCount: PropTypes.arrayOf(PropTypes.number).isRequired,
+    giveUp: PropTypes.bool.isRequired,
+    secretWord: PropTypes.string.isRequired
 }
 
 export default GuessedWords;

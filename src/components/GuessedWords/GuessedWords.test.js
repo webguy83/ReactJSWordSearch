@@ -5,7 +5,9 @@ import GuessedWords from './GuessedWords';
 
 const defaultProps = {
     guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }],
-    guessCount: [1, 2, 3]
+    guessCount: [1, 2, 3],
+    giveUp: false,
+    secretWord: "bunk"
 }
 
 const setup = (props = {}) => {
@@ -44,6 +46,14 @@ describe('if there are no words guessed', () => {
         });
         const comp = elementAttr(wrapper, 'guessed-words-instructions');
         expect(comp.prop('style').display).toBe('none');
+    });
+
+    it('includes the secret word length in the instructions', () => {
+        wrapper = setup({
+            guessedWords: []
+        });
+        const comp = elementAttr(wrapper, "test-secret-word-length");
+        expect(Number(comp.text())).toBe(4);
     })
 })
 
