@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { guessWord, giveUp, togglePlayMode } from '../../store/actions';
+import { guessWord, giveUp, togglePlayMode, setSecretWord } from '../../store/actions';
 import GiveUpBtn from '../GiveUp/GiveUp';
 
 import { Auxiliary } from '../../utils/testingFunctions';
@@ -26,12 +26,20 @@ export class UnconnectedInputSearch extends Component {
         }
         this.setState({
             inputData: ""
-        })
+        });
     }
 
     submitUserWordClicked = (e) => {
+        const { setSecretWord, togglePlayMode } = this.props;
         e.preventDefault();
-        this.props.togglePlayMode();
+        const word = this.state.inputData;
+        if (word && word.length > 0) {
+            setSecretWord(word)
+        }
+        this.setState({
+            inputData: ""
+        });
+        togglePlayMode();
     }
 
     giveUpClickBtn = () => {
@@ -77,6 +85,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         togglePlayMode: () => {
             return dispatch(togglePlayMode());
+        },
+        setSecretWord: (word) => {
+            return dispatch(setSecretWord(word))
         }
     }
 }

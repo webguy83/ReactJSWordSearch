@@ -130,27 +130,29 @@ describe('redux props', () => {
         const wrapper = setup();
         const guessWordProp = wrapper.instance().props.guessWord;
         expect(guessWordProp).toBeInstanceOf(Function);
-    })
+    });
     it('has a giveUp piece of state as prop', () => {
         const giveUp = true;
         const wrapper = setup({ giveUp });
         const giveUpProp = wrapper.instance().props.giveUp;
         expect(giveUpProp).toBe(giveUp);
-    })
+    });
 })
 
 describe('guess word action creator call and event testing', () => {
     let guessWordMock;
     let togglePlayModeMock;
     let giveUpActionMock;
+    let setSecretWordMock;
     let wrapper;
 
     const setup = (playMode = true) => {
         guessWordMock = jest.fn();
         togglePlayModeMock = jest.fn();
         giveUpActionMock = jest.fn();
+        setSecretWordMock = jest.fn();
 
-        return shallow(<UnconnectedInputSearch giveUpAction={giveUpActionMock} guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} playMode={playMode} />);
+        return shallow(<UnconnectedInputSearch setSecretWord={setSecretWordMock} giveUpAction={giveUpActionMock} guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} playMode={playMode} />);
     }
 
     describe('giveUp button testing.', () => {
@@ -170,6 +172,19 @@ describe('guess word action creator call and event testing', () => {
             input.simulate('change', { target: { value: inputVal } })
             expect(wrapper.state('inputData')).toBe(inputVal);
         });
+    })
+
+    describe('set secret word', () => {
+        it('should submit a secret word', () => {
+            wrapper = setup(false);
+            wrapper.setState({
+                inputData: "bunk"
+            });
+            const component = elementAttr(wrapper, "component-submitBtn");
+            component.simulate('click', {preventDefault: () => {}});
+
+            expect(setSecretWordMock.mock.calls.length).toBe(1);
+        })
     })
 
     describe('guess button testing when guessing a word', () => {
