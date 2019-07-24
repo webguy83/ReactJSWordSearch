@@ -116,6 +116,16 @@ describe('app visuals', () => {
     const comp = elementAttr(wrapper, "test-reveal-answer");
     expect(comp.length).toBe(0);
   });
+  it('should reveal answer if user has not succeded yet', () => {
+    const wrapper = setup({ success: false });
+    const comp = elementAttr(wrapper, "test-reveal-answer");
+    expect(comp.length).toBe(1);
+  });
+  it('should hide answer if user succeeded', () => {
+    const wrapper = setup({ success: true });
+    const comp = elementAttr(wrapper, "test-reveal-answer");
+    expect(comp.length).toBe(0);
+  });
 })
 
 it('should run getSecretWord on mount', () => {

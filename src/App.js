@@ -63,7 +63,7 @@ export class UncontrolledApp extends Component {
             <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
             <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
             <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
-            {!giveUp ? <p data-test="test-reveal-answer">Hover over the box to reveal the answer: {returnAnswer()}</p> : null}
+            {!giveUp && !success ? <p data-test="test-reveal-answer">Hover over the box to reveal the answer: {returnAnswer()}</p> : null}
             <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
           </div>
         </main>
