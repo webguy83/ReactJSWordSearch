@@ -34,13 +34,12 @@ export class UnconnectedInputSearch extends Component {
         this.props.togglePlayMode();
     }
 
-    giveUpClickBtn = (e) => {
-        e.preventDefault()
+    giveUpClickBtn = () => {
         this.props.giveUpAction();
     }
 
     render() {
-        const { giveUpClickBtn, guessInputBox, guessWordClicked, submitUserWordClicked } = this;
+        const { giveUpClickBtn, guessWordClicked, submitUserWordClicked } = this;
         const { success, giveUp, playMode } = this.props;
         return (
             <form data-test="component-inputsearch">
@@ -48,7 +47,7 @@ export class UnconnectedInputSearch extends Component {
                     <Auxiliary>
                         <p className="instructions-submit-word" style={{ display: playMode ? "none" : "block" }} data-test="test-instructions-submit-word">Enter a word for someone else to guess!</p>
                         <input data-test="test-component-inputbox" className="searchInput" type="text" name="search" onChange={this.inputChange} value={this.state.inputData} />
-                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={/*playMode ? */guessWordClicked /*: submitUserWordClicked*/} type="submit">{playMode ? "Guess" : "Submit"}</button>
+                        <button className="btn btn-dark btn-sm guessBtn" data-test="component-submitBtn" onClick={playMode ? guessWordClicked : submitUserWordClicked} type="submit">{playMode ? "Guess" : "Submit"}</button>
                         <span data-test="test-giveUpBtn" style={{ display: playMode ? "inline" : "none" }}>
                             <GiveUpBtn giveUpAndShowWord={giveUpClickBtn} />
                         </span>

@@ -139,40 +139,96 @@ describe('redux props', () => {
     })
 })
 
-describe('guess word action creator call', () => {
+describe('guess word action creator call and event testing', () => {
     let guessWordMock;
     let togglePlayModeMock;
+    let giveUpActionMock;
     let wrapper;
 
-    beforeEach(() => {
+    const setup = (playMode = true) => {
         guessWordMock = jest.fn();
         togglePlayModeMock = jest.fn();
-        wrapper = shallow(<UnconnectedInputSearch guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} />);
-    });
+        giveUpActionMock = jest.fn();
 
-    describe('input change', () => {
+        return shallow(<UnconnectedInputSearch giveUpAction={giveUpActionMock} guessWord={guessWordMock} togglePlayMode={togglePlayModeMock} playMode={playMode} />);
+    }
+
+    describe('giveUp button testing.', () => {
+        it('should run the giveUpAction creator', () => {
+            wrapper = setup();
+            wrapper.instance().giveUpClickBtn();
+            expect(giveUpActionMock.mock.calls.length).toBe(1);
+        });
+    })
+
+    describe('event change testing', () => {
         it('should set the state of the input data onChange', () => {
+            wrapper = setup();
             const inputVal = "bunk";
             const input = elementAttr(wrapper, "test-component-inputbox");
             input.simulate('focus');
             input.simulate('change', { target: { value: inputVal } })
             expect(wrapper.state('inputData')).toBe(inputVal);
-        })
+        });
     })
 
-    it('should simulate a click and call guessWord on submit button', () => {
-        wrapper.setState({
-            inputData: "bambideer"
+    describe('guess button testing when guessing a word', () => {
+        it('should simulate a click and call guessWord on guess button and playmode is true', () => {
+            wrapper = setup();
+            wrapper.setState({
+                inputData: "bambideer"
+            });
+
+            const component = elementAttr(wrapper, "component-submitBtn");
+            component.simulate('click', { preventDefault: () => { } });
+
+            const guessWordCallCount = guessWordMock.mock.calls.length;
+            expect(guessWordCallCount).toBe(1);
         });
 
-        const component = elementAttr(wrapper, "component-submitBtn");
-        component.simulate('click', { preventDefault: () => { } });
+        it('should not simulate a click and not call guessWord on guess button and playmode is false', () => {
+            wrapper = setup(false);
+            wrapper.setState({
+                inputData: "bambideer"
+            });
 
-        const guessWordCallCount = guessWordMock.mock.calls.length;
-        expect(guessWordCallCount).toBe(1);
+            const component = elementAttr(wrapper, "component-submitBtn");
+            component.simulate('click', { preventDefault: () => { } });
+
+            const guessWordCallCount = guessWordMock.mock.calls.length;
+            expect(guessWordCallCount).toBe(0);
+        });
     });
 
+    describe('submit button testing when submitting a new word', () => {
+        it('should simulate a click and call submitUserWord on click when playmode is false', () => {
+            wrapper = setup(false);
+            wrapper.setState({
+                inputData: "dunce"
+            });
+            const component = elementAttr(wrapper, "component-submitBtn");
+            component.simulate('click', { preventDefault: () => { } });
+
+            const togglePlayModeCount = togglePlayModeMock.mock.calls.length;
+            expect(togglePlayModeCount).toBe(1);
+
+        });
+        it('should not simulate a click and not call submitUserWord on click when playmode is true', () => {
+            wrapper = setup();
+            wrapper.setState({
+                inputData: "dunce"
+            });
+            const component = elementAttr(wrapper, "component-submitBtn");
+            component.simulate('click', { preventDefault: () => { } });
+
+            const togglePlayModeCount = togglePlayModeMock.mock.calls.length;
+            expect(togglePlayModeCount).toBe(0);
+
+        });
+    })
+
     it('should not submit if input is empty', () => {
+        wrapper = setup();
         wrapper.setState({
             inputData: ""
         });
@@ -185,6 +241,7 @@ describe('guess word action creator call', () => {
     })
 
     it('should call guessWord with input as arg', () => {
+        wrapper = setup();
         const guessedWord = "cowdodo";
         wrapper.setState({
             inputData: guessedWord
@@ -198,6 +255,7 @@ describe('guess word action creator call', () => {
     });
 
     it('should clear the input field after submitting', () => {
+        wrapper = setup();
         const guessedWord = "andboomgoesthedinmite";
 
         wrapper.setState({

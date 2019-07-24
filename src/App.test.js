@@ -106,6 +106,16 @@ describe('app visuals', () => {
     const comp = elementAttr(wrapper, "test-playMode-group");
     expect(comp.prop("style").display).toBe("none");
   });
+  it('should reveal answer if user has not given up', () => {
+    const wrapper = setup({ giveUp: false });
+    const comp = elementAttr(wrapper, "test-reveal-answer");
+    expect(comp.length).toBe(1);
+  });
+  it('should hide answer if user gave up', () => {
+    const wrapper = setup({ giveUp: true });
+    const comp = elementAttr(wrapper, "test-reveal-answer");
+    expect(comp.length).toBe(0);
+  });
 })
 
 it('should run getSecretWord on mount', () => {
