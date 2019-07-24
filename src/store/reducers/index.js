@@ -5,6 +5,7 @@ import secretWord from './secretWord';
 import guessCount from './guessCount';
 import giveUp from './giveUp';
 import playMode from './playMode';
+import networkError from './networkError';
 
 export default combineReducers({
     success,
@@ -12,5 +13,6 @@ export default combineReducers({
     secretWord,
     guessCount,
     giveUp,
-    playMode
+    playMode,
+    networkError
 })

@@ -11,7 +11,8 @@ export const actionTypes = {
     CLEAR_GUESS_COUNT: "CLEAR_GUESS_COUNT",
     GIVE_UP: "GIVE_UP",
     CLEAR_GIVE_UP: "CLEAR_GIVE_UP",
-    TOGGLE_PLAYMODE: "TOGGLE_PLAYMODE"
+    TOGGLE_PLAYMODE: "TOGGLE_PLAYMODE",
+    NETWORK_ERROR: "NETWORK_ERROR"
 }
 
 export const resetSuccess = () => {
@@ -85,6 +86,12 @@ export const getSecretWord = () => {
                     type: actionTypes.SET_SECRET_WORD,
                     payload: res.data
                 })
+            })
+            .catch(err => {
+                dispatch({
+                    type: actionTypes.NETWORK_ERROR,
+                    payload: err.message
+                });
             })
     }
 }
