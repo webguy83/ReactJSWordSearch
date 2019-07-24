@@ -50,6 +50,13 @@ export const togglePlayMode = () => {
     }
 }
 
+export const setSecretWord = (secretWord) => {
+    return {
+        type: actionTypes.SET_SECRET_WORD,
+        payload: secretWord
+    }
+}
+
 export const guessWord = (guessedWord) => {
     return (dispatch, getState) => {
         const secretWord = getState().secretWord;
