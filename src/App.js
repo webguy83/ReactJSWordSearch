@@ -62,7 +62,7 @@ export class UncontrolledApp extends Component {
           <div data-test="test-playMode-group" style={{ display: playMode ? "block" : "none" }}>
             <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
             <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
-            <GuessedWords guessedWords={guessedWords} guessCount={guessCount} />
+            <GuessedWords giveUp={giveUp} guessedWords={guessedWords} guessCount={guessCount} />
             {!giveUp && !success ? <p data-test="test-reveal-answer">Hover over the box to reveal the answer: {returnAnswer()}</p> : null}
             <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
           </div>

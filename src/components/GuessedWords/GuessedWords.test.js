@@ -21,20 +21,29 @@ describe('if there are no words guessed', () => {
 
     let wrapper;
 
-    beforeEach(() => {
+    it('renders comp without an error', () => {
         wrapper = setup({
             guessedWords: []
-        })
-    })
-
-    it('renders comp without an error', () => {
+        });
         const comp = elementAttr(wrapper, "guessed-words-container");
         expect(comp.length).toBe(1);
     })
 
     it('renders an intructions line', () => {
+        wrapper = setup({
+            guessedWords: []
+        });
         const comp = elementAttr(wrapper, 'guessed-words-instructions');
         expect(comp.text().length).not.toBe(0);
+    });
+
+    it('does not render intructions if the user gives up', () => {
+        wrapper = setup({
+            guessedWords: [],
+            giveUp: true
+        });
+        const comp = elementAttr(wrapper, 'guessed-words-instructions');
+        expect(comp.prop('style').display).toBe('none');
     })
 })
 
