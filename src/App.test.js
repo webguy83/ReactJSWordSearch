@@ -93,6 +93,18 @@ describe('redux props', () => {
     const getSecretWordProp = wrapper.instance().props.getSecretWord;
     expect(getSecretWordProp).toBeInstanceOf(Function);
   })
+  it('should have access to playMode state', () => {
+    const playMode = true;
+    const wrapper = setup({ playMode });
+    const playModeProp = wrapper.instance().props.playMode;
+    expect(playModeProp).toBe(playMode);
+  });
+  it('should have access to networkError state', () => {
+    const networkError = "Network Error";
+    const wrapper = setup({ networkError });
+    const networkErrorProp = wrapper.instance().props.networkError;
+    expect(networkErrorProp).toBe(networkError);
+  });
 })
 
 describe('app visuals', () => {

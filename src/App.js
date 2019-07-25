@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Auxiliary } from './utils/testingFunctions';
 import InputSearch from './components/InputSearch/InputSearch';
 import GuessedWords from './components/GuessedWords/GuessedWords';
 import SuccessMessage from './components/SuccessMessage/SuccessMessage';
 import NewWordBtn from './components/NewWord/NewWord';
 import EnterSecretWordBtn from './components/EnterSecretWord/EnterSecretWord';
+import NetworkErrorMessage from './components/NetworkErrorMessage/NetworkErrorMessage';
 import { getSecretWord, resetSuccess, clearGuessWords, clearGuessCount, clearGiveUp, togglePlayMode } from './store/actions';
 import './App.css';
 
@@ -50,7 +52,7 @@ export class UncontrolledApp extends Component {
 
   render() {
     const { newWordBtnClick, returnAnswer, enterSecretWordClick } = this;
-    const { success, guessedWords, guessCount, giveUp, secretWord, playMode } = this.props;
+    const { success, guessedWords, guessCount, giveUp, secretWord, playMode, networkError } = this.props;
 
     return (
       <div className="container">
@@ -58,14 +60,18 @@ export class UncontrolledApp extends Component {
           <h1>Guess the Word</h1>
         </header>
         <main>
-          <InputSearch />
-          <div data-test="test-playMode-group" style={{ display: playMode ? "block" : "none" }}>
-            <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
-            <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
-            <GuessedWords secretWord={secretWord} giveUp={giveUp} guessedWords={guessedWords} guessCount={guessCount} />
-            {!giveUp && !success ? <p data-test="test-reveal-answer">Hover over the box to reveal the answer: {returnAnswer()}</p> : null}
-            <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
-          </div>
+          {networkError ? <NetworkErrorMessage networkError={networkError} /> :
+            <Auxiliary>
+              <InputSearch />
+              <div data-test="test-playMode-group" style={{ display: playMode ? "block" : "none" }}>
+                <SuccessMessage secretWord={secretWord} success={success} giveUp={giveUp} />
+                <NewWordBtn clearData={newWordBtnClick} success={success} giveUp={giveUp} />
+                <GuessedWords secretWord={secretWord} giveUp={giveUp} guessedWords={guessedWords} guessCount={guessCount} />
+                {!giveUp && !success ? <p data-test="test-reveal-answer">Hover over the box to reveal the answer: {returnAnswer()}</p> : null}
+                <EnterSecretWordBtn enterSecretWord={enterSecretWordClick} />
+              </div></Auxiliary>
+          }
+
         </main>
         <footer>&copy; Curtis Yacboski</footer>
       </div>
@@ -74,14 +80,15 @@ export class UncontrolledApp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { success, guessedWords, secretWord, guessCount, giveUp, playMode } = state;
+  const { success, guessedWords, secretWord, guessCount, giveUp, playMode, networkError } = state;
   return {
     success,
     guessedWords,
     secretWord,
     guessCount,
     giveUp,
-    playMode
+    playMode,
+    networkError
   }
 }
 
