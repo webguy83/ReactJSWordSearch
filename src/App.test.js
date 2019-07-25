@@ -39,6 +39,10 @@ describe('render', () => {
 
   it('renders an enterSecretWords button', () => {
     expect(wrapper.find(EnterSecretWordBtn).length).toBe(1);
+  });
+  it('throws a network error message and does not render the input data if there is an error', () => {
+    wrapper = setup({ networkError: "Network Error" });
+    expect(wrapper.find(InputSearch).length).toBe(0);
   })
 })
 
@@ -235,7 +239,7 @@ describe('after clicking Enter Secret Word button it should perform the followin
   it('run resetSuccess function on button click', () => {
     expect(resetSuccessMock.mock.calls.length).toBe(1);
   })
-  it('run clearGuessWords function on button click,', () => {
+  it('run clearGuessWords function on button click', () => {
     expect(clearGuessWordsMock.mock.calls.length).toBe(1);
   })
   it('runs clearGuessCount function on button click', () => {
