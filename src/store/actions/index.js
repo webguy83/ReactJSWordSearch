@@ -12,7 +12,8 @@ export const actionTypes = {
     GIVE_UP: "GIVE_UP",
     CLEAR_GIVE_UP: "CLEAR_GIVE_UP",
     TOGGLE_PLAYMODE: "TOGGLE_PLAYMODE",
-    NETWORK_ERROR: "NETWORK_ERROR"
+    NETWORK_ERROR: "NETWORK_ERROR",
+    DATA_LOADING: "DATA_LOADING"
 }
 
 export const resetSuccess = () => {
@@ -80,14 +81,26 @@ export const guessWord = (guessedWord) => {
 
 export const getSecretWord = () => {
     return (dispatch) => {
+        dispatch({
+            type: actionTypes.DATA_LOADING,
+            payload: true
+        });
         return axios.get('http://localhost:3030')
             .then(res => {
                 dispatch({
+                    type: actionTypes.DATA_LOADING,
+                    payload: false
+                });
+                dispatch({
                     type: actionTypes.SET_SECRET_WORD,
                     payload: res.data
-                })
+                });
             })
             .catch(err => {
+                dispatch({
+                    type: actionTypes.DATA_LOADING,
+                    payload: false
+                });
                 dispatch({
                     type: actionTypes.NETWORK_ERROR,
                     payload: err.message

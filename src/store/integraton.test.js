@@ -25,7 +25,8 @@ describe('guess word action dispatcher', () => {
                 guessCount: [1, 2],
                 giveUp: false,
                 playMode: true,
-                networkError: ""
+                networkError: "",
+                dataLoading: false
             }
             expect(newState).toEqual(expectState);
         })
@@ -42,7 +43,8 @@ describe('guess word action dispatcher', () => {
                 guessCount: [1, 2],
                 giveUp: false,
                 playMode: true,
-                networkError: ""
+                networkError: "",
+                dataLoading: false
             }
             expect(newState).toEqual(expectState);
         })
@@ -65,7 +67,8 @@ describe('guess word action dispatcher', () => {
                 guessCount: [1, 2],
                 giveUp: false,
                 playMode: true,
-                networkError: ""
+                networkError: "",
+                dataLoading: false
             }
             expect(newState).toEqual(expectState);
         })
@@ -79,7 +82,8 @@ describe('guess word action dispatcher', () => {
                 guessCount: [1, 2],
                 giveUp: false,
                 playMode: true,
-                networkError: ""
+                networkError: "",
+                dataLoading: false
             }
             expect(newState).toEqual(expectState);
         })

@@ -6,6 +6,7 @@ import guessCount from './guessCount';
 import giveUp from './giveUp';
 import playMode from './playMode';
 import networkError from './networkError';
+import dataLoading from './dataLoading';
 
 export default combineReducers({
     success,
@@ -14,5 +15,6 @@ export default combineReducers({
     guessCount,
     giveUp,
     playMode,
-    networkError
+    networkError,
+    dataLoading
 })

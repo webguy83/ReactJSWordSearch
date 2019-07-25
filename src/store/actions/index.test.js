@@ -47,4 +47,51 @@ describe('getSecretWord action creator', () => {
                 expect(state.networkError).toBe(errorMessage);
             })
     })
-})
+    it('should set dataLoading state to true on getSecretWord function initially', () => {
+        const secretWord = "hippybizatch";
+        const store = storeFactory();
+
+        moxios.wait(() => {
+            let req = moxios.requests.mostRecent();
+            req.respondWith({
+                status: 200,
+                response: secretWord
+            });
+        });
+        store.dispatch(getSecretWord());
+        expect(store.getState().dataLoading).toBe(true);
+    });
+    it('should dataLoading state to false when getSecretWord promise is done', () => {
+        const secretWord = "dunxe";
+        const store = storeFactory();
+
+        moxios.wait(() => {
+            let req = moxios.requests.mostRecent();
+            req.respondWith({
+                status: 200,
+                response: secretWord
+            })
+        });
+
+        return store.dispatch(getSecretWord())
+            .then(() => {
+                expect(store.getState().dataLoading).toBe(false)
+            })
+    });
+    it('should dataLoading state to false when getSecretWord promise has failed', () => {
+        const store = storeFactory({ dataLoading: true });
+
+        moxios.wait(() => {
+            let req = moxios.requests.mostRecent();
+            req.reject({
+                status: 400,
+                response: { message: "Network Error" }
+            })
+        });
+
+        return store.dispatch(getSecretWord())
+            .catch(() => {
+                expect(store.getState().dataLoading).toBe(false);
+            })
+    });
+});
