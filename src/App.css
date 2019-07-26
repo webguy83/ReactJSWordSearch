@@ -44,3 +44,8 @@ footer {
 .instructions-submit-word {
   margin-bottom: .3rem;
 }
+
+.spinner {
+  display: block;
+  margin: 0 auto;
+}
