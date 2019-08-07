@@ -1,6 +1,5 @@
 import { getLetterMatchCount } from '../../utils/helpers';
 import axios from 'axios';
-import { API_KEY } from '../../private/config';
 
 export const actionTypes = {
     CORRECT_GUESS: "CORRECT_GUESS",
@@ -86,7 +85,7 @@ export const getSecretWord = () => {
             type: actionTypes.DATA_LOADING,
             payload: true
         });
-        return axios.get(`https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=3&maxLength=5&api_key=${API_KEY}`)
+        return axios.get(`https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=3&maxLength=5&api_key=${process.env.REACT_APP_API_KEY}`)
             .then(res => {
                 dispatch({
                     type: actionTypes.DATA_LOADING,
