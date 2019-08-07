@@ -18,7 +18,7 @@ describe('getSecretWord action creator', () => {
             const req = moxios.requests.mostRecent();
             req.respondWith({
                 status: 200,
-                response: secretWord
+                response: { word: secretWord }
             })
         });
 

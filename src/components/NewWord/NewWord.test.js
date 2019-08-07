@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import checkPropTypes from 'check-prop-types';
 
-import { elementAttr, checkProps } from '../../utils/testingFunctions';
+import { elementAttr } from '../../utils/testingFunctions';
 
 import NewWord from './NewWord';
 
@@ -50,6 +51,6 @@ describe('rendering conditons', () => {
     it('does not throw a warning with expected props', () => {
         const wrapper = setup();
         const comp = elementAttr(wrapper, 'test-new-word-btn');
-        expect(checkProps(comp, { success: true }));
+        expect(checkPropTypes(comp.propTypes, {success: true }, 'prop', comp.name)).toBeUndefined();
     })
 })

@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { elementAttr, checkProps } from '../../utils/testingFunctions';
+import { elementAttr } from '../../utils/testingFunctions';
 import GuessedWords from './GuessedWords';
+import checkPropTypes from 'check-prop-types';
 
 const defaultProps = {
     guessedWords: [{ guessedWord: "bobsagat", letterMatchCount: 4 }],
@@ -16,7 +17,7 @@ const setup = (props = {}) => {
 }
 
 it('should not throw any warning with props expected', () => {
-    checkProps(GuessedWords, defaultProps)
+    expect(checkPropTypes(GuessedWords.propTypes, defaultProps, 'prop', GuessedWords.name)).toBeUndefined();
 })
 
 describe('if there are no words guessed', () => {

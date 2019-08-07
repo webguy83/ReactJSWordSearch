@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import checkPropTypes from 'check-prop-types';
 
-import { elementAttr, checkProps } from '../../utils/testingFunctions';
+import { elementAttr } from '../../utils/testingFunctions';
 
 import SuccessMessage from './SuccessMessage';
 
@@ -76,5 +77,5 @@ describe('secretWord', () => {
 })
 
 it('does not throw a warning with expected props', () => {
-    checkProps(SuccessMessage, { success: false, giveUp: false, secretWord: "" })
+    expect(checkPropTypes(SuccessMessage.propTypes, { success: false, giveUp: false, secretWord: "" }, 'prop', SuccessMessage.name)).toBeUndefined();
 })

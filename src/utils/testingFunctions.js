@@ -1,4 +1,3 @@
-import checkPropTypes from 'check-prop-types';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -10,10 +9,6 @@ export const storeFactory = (initState) => {
 
 export const elementAttr = (wrapper, value) => {
     return wrapper.find(`[data-test="${value}"]`);
-}
-
-export const checkProps = (component, props) => {
-    expect(checkPropTypes(component.propTypes, props, 'prop', component.name)).toBeUndefined();
 }
 
 export const Auxiliary = (props) => {

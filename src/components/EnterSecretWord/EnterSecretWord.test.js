@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import EnterSecretWordBtn from './EnterSecretWord';
+import checkPropTypes from 'check-prop-types';
 
-import {elementAttr, checkProps} from '../../utils/testingFunctions';
+import {elementAttr} from '../../utils/testingFunctions';
 
 const defaultProps = {
     enterSecretWord: () => { }
@@ -27,6 +28,6 @@ describe('rendering', () => {
     });
 
     it('should not throw and error from expect props', () => {
-        expect(checkProps(comp, {...defaultProps}));
+        expect(checkPropTypes(comp.propTypes, defaultProps, 'prop', comp.name)).toBeUndefined();
     })
 })

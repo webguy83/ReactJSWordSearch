@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import checkPropTypes from 'check-prop-types';
 
 import GiveUpBtn from './GiveUp';
 
-import { checkProps, elementAttr } from '../../utils/testingFunctions';
+import { elementAttr } from '../../utils/testingFunctions';
 
 const defaultProps = {
     giveUpAndShowWord: () => { }
@@ -27,6 +28,6 @@ describe('rendering', () => {
     });
 
     it('should not throw an error from expected props', () => {
-        expect(checkProps(comp, {}));
+        expect(checkPropTypes(comp.propTypes, {}, 'prop', comp.name)).toBeUndefined();
     })
 })
