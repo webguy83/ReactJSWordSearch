@@ -1,5 +1,16 @@
-View this project at: https://word-searchjs.netlify.com/.
-Good luck at guessing the words! :)
+## Project Info
+
+View this working project at: https://word-searchjs.netlify.com/.  <br>Secret words are being pulled in from Wordnik: https://developer.wordnik.com/.<br><br>
+
+Tech used:<br> 
+Hosting: Netlify<br>
+Front End: React, Redux<br>
+Testing: Jest, Enzyme<br>
+Back end: Wordnik<br>
+
+Good luck at guessing the words! :)<br><br>
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
  
