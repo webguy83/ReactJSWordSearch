@@ -1,4 +1,4 @@
-View this project at: https://word-searchjs.netlify.com/
+View this project at: https://word-searchjs.netlify.com/.
 Good luck at guessing the words! :)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
